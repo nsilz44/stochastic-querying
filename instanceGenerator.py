@@ -18,5 +18,5 @@ def minimum_problem(num_of_intervals,salt_max,query_cost_uniformness,query_cost_
         Qi = [query_cost_max] * num_of_intervals
     return Li,Ri,Qi,probability_distribution_list
 
-p= 10 * [1]
-print(minimum_problem(10,10,1,0,p))
+#p= 10 * [1]
+#print(minimum_problem(10,10,1,1,p))
