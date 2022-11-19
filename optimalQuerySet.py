@@ -10,6 +10,8 @@ def minimumProblemUniformOptimalQuerySet(Li,Ri,Vi):
         if Ri[i] >= min_value:
             query_set.append(i)
         i += 1
+    if len(query_set) == n:
+        query_set.remove(0)
     return query_set
 
 '''p= 10 * ['1']
