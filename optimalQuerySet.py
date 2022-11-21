@@ -10,7 +10,6 @@ def minimumProblemUniformOptimalQuerySet(Li,Ri,Vi):
         if Ri[i] >= min_value:
             query_set.append(i)
         i += 1
-    # still wrong
     remove_one = False
     if len(query_set) == n:
         remove_one = True
