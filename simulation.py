@@ -10,6 +10,6 @@ def minimumProblemSimulation(Li,Ri,Pi):
     return (Vi)
 
 '''p= 10 * ['1']
-m = minimum_problem(10,10,1,0,p)
+m = minimumProblem(10,10,1,0,p)
 print(m)
 print(minimumProblemSimulation(m[0],m[1],m[3]))'''

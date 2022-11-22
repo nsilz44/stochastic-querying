@@ -24,7 +24,7 @@ def minimumProblemUniformOptimalQuerySet(Li,Ri,Vi):
     return query_set
 
 '''p= 10 * ['1']
-m = minimum_problem(10,10,1,0,p)
+m = minimumProblem(10,10,1,0,p)
 print(m)
 s = minimumProblemSimulation(m[0],m[1],m[3])
 print(s)

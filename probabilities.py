@@ -1,11 +1,11 @@
 import random
 
-def uniform_prob(l_endpoint,r_endpoint):
+def uniformProb(l_endpoint,r_endpoint):
     return random.uniform(l_endpoint,r_endpoint)
 
 def prob(probability_type,L_endpoint,r_endpoint):
     switch={
-    '1': uniform_prob(L_endpoint,r_endpoint),
+    '1': uniformProb(L_endpoint,r_endpoint),
        }
     return switch.get(probability_type,'not available')
 
