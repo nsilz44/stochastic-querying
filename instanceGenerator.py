@@ -43,6 +43,6 @@ def hypergraphOrientationProblem(num_of_intervals,num_of_edges,max_vertices_per_
         Qi = [query_cost_max] * num_of_intervals
     return Li,Ri,Ei,Qi,probability_distribution_list
 
-p= 10 * [1]
+#p= 10 * [1]
 #print(minimumProblem(10,10,1,1,p))
 #print(hypergraphOrientationProblem(10,8,3,10,1,1,p))
