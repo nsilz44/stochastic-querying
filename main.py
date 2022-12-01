@@ -14,7 +14,7 @@ def start(a):
     print('Type "h" for the hypergraph orientation problem')
     problem = input('')
     if problem == 'm':
-        minimumProblem()
+        makeMinimumProblem(0)
     elif problem == 's':
         sortingProblem()
     elif problem == 'h':
@@ -22,7 +22,7 @@ def start(a):
     else:
         start(1)
 
-def minimumProblem(a):
+def makeMinimumProblem(a):
     if a == 1:
         print('Try again')
     print('Type "i" to import an instance')
@@ -33,7 +33,7 @@ def minimumProblem(a):
         csvFile = input('')
         df = pd.read_csv(csvFile)
     elif instance == 'n':
-        #(num_of_intervals,salt_max,query_cost_uniformness,query_cost_max,probability_distribution_list)
+        #(num_of_intervals,salt_max,Qi,probability_distribution_list)
         Li,Ri,Qi,probability_distribution_list = createInstanceMinimumProblem()
     else:
         minimumProblem(1)
@@ -59,6 +59,55 @@ def createInstanceMinimumProblem():
                 print("Try again ")
         except ValueError:
             print("Try again ")
+    uniform = False
+    while not uniform:
+        print('Would you like uniform queries?')
+        uniformness = input('Type in y or n: ') 
+        if uniformness == ('y' or 'n'):
+            uniform = True
+        else:
+            print("Try again ")
+    if uniformness == 'y':
+        uniformness = 1
+        max_query = False
+        while not max_query:
+            try:
+                query = float(input('What would you like the query amount to be? '))
+                if query > 0:
+                    max_query = True
+                else:
+                    print("Try again ")
+            except ValueError:
+                print("Try again ")
+    else: 
+        '''TO be made'''
+    Qi = [query] * num_of_intervals
+    uniform_prob = False
+    while not uniform_prob:
+        print('Would you like uniform probabilities?')
+        uniformness_prob = input('Type in y or n: ') 
+        if uniformness_prob == ('y' or 'n'):
+            uniform_prob = True
+        else:
+            print("Try again ")
+    if uniformness_prob == 'y':
+        prob = False
+        while not prob:
+            print('Which probability would you like to use')
+            prob_dist = input('Type 1 ') 
+            if prob_dist == ('1'):
+                prob = True
+            else:
+                print("Try again ")
+        probability_distribution_list = [prob_dist] * num_of_intervals
+
+    else: 
+        '''TO be made'''
+    Li,Ri,Qi,probability_distribution_list = minimumProblem(num_of_intervals,salt_max,Qi,probability_distribution_list)
+    print(Ri)
+    return Li,Ri,Qi,probability_distribution_list
+
+    
 def sortingProblem():
     print('lol')
 
