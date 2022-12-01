@@ -3,7 +3,7 @@ from instanceGenerator import *
 from simulation import *
 from optimalQuerySet import *
 import pandas as pd
-
+import time
 
 def start(a):
     if a == 1:
@@ -14,7 +14,8 @@ def start(a):
     print('Type "h" for the hypergraph orientation problem')
     problem = input('')
     if problem == 'm':
-        makeMinimumProblem(0)
+        minimumInstance = makeMinimumProblem(0)
+
     elif problem == 's':
         sortingProblem()
     elif problem == 'h':
@@ -29,14 +30,14 @@ def makeMinimumProblem(a):
     print('Type "n" to create a new instance')
     instance = input('')
     if instance == 'i':
-        print('Type in the csv file with the previous instance')
+        print('Type in the csv filename with the previous instance')
         csvFile = input('')
         df = pd.read_csv(csvFile)
     elif instance == 'n':
-        #(num_of_intervals,salt_max,Qi,probability_distribution_list)
         Li,Ri,Qi,probability_distribution_list = createInstanceMinimumProblem()
     else:
         minimumProblem(1)
+    return Li,Ri,Qi,probability_distribution_list
 
 def createInstanceMinimumProblem():
     intervals = False
@@ -103,8 +104,15 @@ def createInstanceMinimumProblem():
 
     else: 
         '''TO be made'''
-    Li,Ri,Qi,probability_distribution_list = minimumProblem(num_of_intervals,salt_max,Qi,probability_distribution_list)
-    print(Ri)
+    Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,probability_distribution_list)
+    instance = {    'Li':Li,
+                    'Ri':Ri,
+                    'Qi':Qi,
+                    'Pi':Pi}
+    df = pd.DataFrame(instance)
+    path = 'instances/minimumElement/'
+    filename = path + str(num_of_intervals) +'-'+ str(int(salt_max)) +'-'+ str(int(max(Qi))) +'-'+ Pi[0] +'.csv'
+    df.to_csv(filename)
     return Li,Ri,Qi,probability_distribution_list
 
     
@@ -115,7 +123,7 @@ def hypergraphOrientationProblem():
     print('h')
 def test():
     p = 10 * ['1']
-    m = minimumProblem(10,10,1,0,p)
+    m = minimumProblem(10,10,p,p)
     print(m)
     s = minimumProblemSimulation(m[0],m[1],m[3])
     print(s)
