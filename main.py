@@ -14,8 +14,7 @@ def start(a):
     print('Type "h" for the hypergraph orientation problem')
     problem = input('')
     if problem == 'm':
-        minimumInstance = makeMinimumProblem(0)
-
+        Li,Ri,Qi,Pi = makeMinimumProblem(0)
     elif problem == 's':
         sortingProblem()
     elif problem == 'h':
@@ -32,12 +31,18 @@ def makeMinimumProblem(a):
     if instance == 'i':
         print('Type in the csv filename with the previous instance')
         csvFile = input('')
-        df = pd.read_csv(csvFile)
+        path = 'instances/minimumElement/'
+        fullpath = path + csvFile
+        df = pd.read_csv(fullpath)
+        Li = df['Li']
+        Ri = df['Ri']
+        Qi = df['Qi']
+        Pi = df['Pi']
     elif instance == 'n':
-        Li,Ri,Qi,probability_distribution_list = createInstanceMinimumProblem()
+        Li,Ri,Qi,Pi = createInstanceMinimumProblem()
     else:
         minimumProblem(1)
-    return Li,Ri,Qi,probability_distribution_list
+    return Li,Ri,Qi,Pi
 
 def createInstanceMinimumProblem():
     intervals = False
@@ -111,7 +116,7 @@ def createInstanceMinimumProblem():
                     'Pi':Pi}
     df = pd.DataFrame(instance)
     path = 'instances/minimumElement/'
-    filename = path + str(num_of_intervals) +'-'+ str(int(salt_max)) +'-'+ str(int(max(Qi))) +'-'+ Pi[0] +'.csv'
+    filename = path + str(random.randint(0,10000)) + str(num_of_intervals) +'-'+ str(int(salt_max)) +'-'+ str(int(max(Qi))) +'-'+ Pi[0] +'.csv'
     df.to_csv(filename)
     return Li,Ri,Qi,probability_distribution_list
 
