@@ -17,18 +17,20 @@ def minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi):
             query_set.append(i)
             cost += Qi[i]
         i += 1
-    remove_one = False
+        if i == n:
+            break
+    remove_one = True
     new_cost = 0
     if min_value == Vi[0]:
         for j in range(1,n):
             new_cost += Qi[j]
             if Vi[j] <= Ri[0]:
-                remove_one == True
+                remove_one == False
     if remove_one == True and new_cost < cost:
         del query_set[0]
     return query_set
 
-def test():
+def testOptionA():
     p= 10 * ['1']
     m = minimumProblem(10,10,p,p)
     print('instance: ', m)
@@ -36,4 +38,8 @@ def test():
     print('simulation: ', s)
     q = minimumProblemOptimalQuerySet(m[0],m[1],s,p)
     print('query set: ', q)
-#test()    
+#testOptionA()    
+
+def testOptionB():
+    print(minimumProblemOptimalQuerySet([10,11,12,13],[14,17,22,25],[13.5,15,20,22],[12,1,3,5]))
+testOptionB()

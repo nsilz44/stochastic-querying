@@ -132,7 +132,7 @@ def test():
     print(m)
     s = minimumProblemSimulation(m[0],m[1],m[3])
     print(s)
-    q = minimumProblemUniformOptimalQuerySet(m[0],m[1],s)
+    q = minimumProblemOptimalQuerySet(m[0],m[1],s,p)
     print(q)
     print(len(q))
 #test()
