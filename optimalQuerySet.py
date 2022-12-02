@@ -7,6 +7,7 @@ Chaplick, S., Halldórsson, M. M., de Lima, M. S., & Tonoyan, T. (2021).
 Query minimization under stochastic uncertainty. Theoretical Computer Science, 
 895, 75-95. https://doi.org/10.48550/arXiv.2010.03517 '''
 def minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi):
+    # Does option a
     n = len(Li)
     min_value = min(Vi)
     i = 0
@@ -19,11 +20,13 @@ def minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi):
         i += 1
         if i == n:
             break
+    # Checks whether option B is better
     remove_one = True
     new_cost = 0
     if min_value == Vi[0]:
         for j in range(1,n):
             new_cost += Qi[j]
+            # value which is a mandatory query
             if Vi[j] <= Ri[0]:
                 remove_one == False
     if remove_one == True and new_cost < cost:
