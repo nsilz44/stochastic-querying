@@ -1,7 +1,7 @@
 import random
 import numpy as np
 
-# function to exclude lower number from random.uniform
+# function to exclude lower number from random.uniform to hold assumptions
 def randomUniform(low,high):
     i = 0
     while i == 0:

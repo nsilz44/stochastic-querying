@@ -28,13 +28,14 @@ def minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi):
     new_cost = sum(Qi) - Qi[0]
     for j in range(1,n):
         new_cost += Qi[j]
-        # value which is a mandatory query
+        # value which is a mandatory query against the first interval
         if Vi[j] <= Ri[0]:
             remove_one == False
             break
     if remove_one == True and new_cost < cost:
         query_set = list(range(1,(n)))
-    return query_set
+    min_value_index = [i for i, value in enumerate(Vi) if value == min_value]
+    return min_value_index, query_set
 
 def testOptionA():
     p= 10 * ['1']
@@ -50,5 +51,5 @@ def testOptionA():
 def testOptionB():
     print(minimumProblemOptimalQuerySet([10,11,12,13],[14,17,22,25],[13.5,15,20,22],[12,1,3,5]))
     print(minimumProblemOptimalQuerySet([0,4,4.5,6],[10,20,21,22],[5,12,13,12],[5,1,1,1]))
-    print(minimumProblemOptimalQuerySet([0,2,6],[10,12,14],[5,4,12],[1,1,10]))
+    print(minimumProblemOptimalQuerySet([0,2,6],[10,12,14],[4,4,12],[1,1,10]))
 #testOptionB()
