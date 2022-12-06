@@ -4,6 +4,8 @@ from simulation import *
 from optimalQuerySet import *
 import pandas as pd
 import time
+import itertools
+import seaborn as sns
 
 def start(a):
     if a == 1:
@@ -15,6 +17,7 @@ def start(a):
     problem = input('')
     if problem == 'm':
         Li,Ri,Qi,Pi = makeMinimumProblem(0)
+        doMinimumProblem(Li,Ri,Qi,Pi)
     elif problem == 's':
         sortingProblem()
     elif problem == 'h':
@@ -22,6 +25,36 @@ def start(a):
     else:
         start(1)
 
+def doMinimumProblem(Li,Ri,Qi,Pi):
+    print('Would you like test this instance or test an algorithm ')
+    print('Type i for testing the instance')
+    print('Type a for testing the algorithm')
+    print('Type s to go back to start')
+    instance = input('')
+    if instance == 'i':
+        testMinInstance(Li,Ri,Qi,Pi)
+    elif instance == 'a':
+        testMinAlgorithm(Li,Ri,Qi,Pi)
+    elif instance == 's':
+        start(0)
+    else:
+        print('not i or a typed')
+        print('try again')
+        doMinimumProblem(Li,Ri,Qi,Pi)
+
+def testMinInstance(Li,Ri,Qi,Pi):
+    num_simulations = int(input('How many simulations would you like to test? '))
+    min_index_list = []
+    query_list = []
+    for k in range(0,num_simulations):
+        Vi = minimumProblemSimulation(Li,Ri,Pi)
+        minimal_index, query_set = minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi)
+        min_index_list.append(minimal_index)
+        query_list.append(query_set)
+    min_index = list(itertools.chain(*min_index_list))
+    queries = list(itertools.chain(*query_list))
+    print(min_index)
+    print(queries)
 def makeMinimumProblem(a):
     if a == 1:
         print('Try again')
@@ -41,7 +74,7 @@ def makeMinimumProblem(a):
     elif instance == 'n':
         Li,Ri,Qi,Pi = createInstanceMinimumProblem()
     else:
-        minimumProblem(1)
+        makeMinimumProblem(1)
     return Li,Ri,Qi,Pi
 
 def createInstanceMinimumProblem():
