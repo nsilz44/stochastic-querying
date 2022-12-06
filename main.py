@@ -33,6 +33,7 @@ def doMinimumProblem(Li,Ri,Qi,Pi):
     instance = input('')
     if instance == 'i':
         testMinInstance(Li,Ri,Qi,Pi)
+        doMinimumProblem(Li,Ri,Qi,Pi)
     elif instance == 'a':
         testMinAlgorithm(Li,Ri,Qi,Pi)
     elif instance == 's':
@@ -55,6 +56,7 @@ def testMinInstance(Li,Ri,Qi,Pi):
     queries = list(itertools.chain(*query_list))
     print(min_index)
     print(queries)
+    return
 def makeMinimumProblem(a):
     if a == 1:
         print('Try again')
