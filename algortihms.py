@@ -36,4 +36,20 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                 if workG != 0:
                     break
         
-
+def cascade(query_set,Li,Ri,Qi,Pi,Vi):
+    min_value = 1000000000000000000000000000000000000000000000000000
+    for i in query_set:
+        del Li[i]
+        del Ri[i]
+        del Qi[i]
+        del Pi[i]
+        if min_value > Vi[i]:
+            min_value = Vi[i]
+        del Vi[i]
+    while not True:
+        # min value is smallest 
+        if len(Li) == 0:
+            break
+        if min_value < Li[0]:
+            break
+        
