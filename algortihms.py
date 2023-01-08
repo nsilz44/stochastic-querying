@@ -61,7 +61,25 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
     pOne = 0
     pR = 0
     phiOne = 0
-    phiR = 0  
+    phiJ = 0 
+    k = 0 
+    sumK = 0
+    while sumK <= wR:
+        sumK += Qi[k]
+        k += 1
+    POne = calcProb(Pi[0],Li[k],Ri[0],Ri[0]-Li[0])
+    PR = calcProbHit(Li,Ri,Pi,R)
+    R = list(range(1,n))  
+    muOne = 1 + (1 - PR) * POne * Qi[0] / wR
+    z = wR / Qi[0]
+    muR = 1 + (13/16) * z + (1 - PR) * (POne * (1 - z) + 13/16 * z - 1) 
+    pOne = 1 + POne * (1 - PR) * Qi[0] / wR
+    pR = (1-PR) * POne + PR + (1-POne+(PR*POne/4)) * z + (3*PR*POne/4) * (z/((3*z)+4))
+    pPrimeOne = calcProb(Pi[0],Li[costly_j],Ri[0],Ri[0]-Li[0])
+    pJ = calcProb(Pi[costly_j],Li[costly_j],Ri[0],Ri[costly_j]-Li[costly_j])
+    wRPrime = wR - Qi[costly_j]
+    phiOne = pPrimeOne * (pJ *(1+ (wRPrime/(Qi[0]+Qi[costly_j]))) + ((1 - pJ) * (1+(1/z)))) + (1 - pPrimeOne) * (pJ*(1+(wRPrime/Qi[0])) + (1-pJ)*((wRPrime+Qi[0])/min(Qi[0],wR)))
+    phiJ = pJ * ((1-pPrimeOne)*(1+z) + pPrimeOne*(1+(wRPrime/(Qi[0]+Qi[costly_j])))) + (1-pJ)*(pPrimeOne + (1-pPrimeOne)* wR / min(Qi[0],wR))
     if len(G) != 0:
         if muOne <= muR:
             query_list = [0]
@@ -87,6 +105,7 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                     return query_list
             return query_list  
     else:
+        # case 2
         if Qi[0] <= (3/4) * wR:
             if pOne <= pR:
                 query_list = [0]
@@ -99,6 +118,7 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                         query_list.append(0)
                         return query_list
                 return query_list
+        #case 3
         else:
             query_list = list(range(1,n))
             query_list.remove(costly_j)
@@ -108,11 +128,13 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                     if min(Vi[query_list]) >= Li(costly_j):
                         query_list.append(costly_j)
                     return query_list
-            if phiOne <= phiR:
+            #case 3.1
+            if phiOne <= phiJ:
                 query_list.append(0)
                 if min(Vi[query_list]) >= Li(costly_j):
                     query_list.append(costly_j)
                 return query_list
+            # case 3.2
             else:
                 query_list.append(costly_j)
                 if min(Vi[query_list]) <= Ri(0):
