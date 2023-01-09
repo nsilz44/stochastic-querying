@@ -63,10 +63,8 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
         #pr[r hits I[0]] = 1 - pr[r not hit I[0]] = for r[j], product of (I[j] missing I[0] = calcProb(Pi[j],Ri[0],Ri[j],size of I[j]))
         R = list(range(1,n))
         m = calcProbHit(Li,Ri,Pi,R)
-        print(m)
         R.remove(costly_j)
         u = calcProbHit(Li,Ri,Pi,R)
-        print(u)
         if u >= m/4:
             G = R.copy()
     else:
@@ -100,7 +98,7 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
     
     k = 0 
     sumK = 0
-    '''while sumK <= wR:
+    while sumK <= wR:
         sumK += Qi[k]
         k += 1
     POne = calcProb(Pi[0],Li[k],Ri[0],Ri[0]-Li[0])
@@ -116,15 +114,8 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
     wRPrime = wR - Qi[costly_j]
     phiOne = pPrimeOne * (pJ *(1+ (wRPrime/(Qi[0]+Qi[costly_j]))) + ((1 - pJ) * (1+(1/z)))) + (1 - pPrimeOne) * (pJ*(1+(wRPrime/Qi[0])) + (1-pJ)*((wRPrime+Qi[0])/min(Qi[0],wR)))
     phiJ = pJ * ((1-pPrimeOne)*(1+z) + pPrimeOne*(1+(wRPrime/(Qi[0]+Qi[costly_j])))) + (1-pJ)*(pPrimeOne + (1-pPrimeOne)* wR / min(Qi[0],wR))
-    '''
-    muOne = 1
-    muR = 0
-    pOne = 1
-    pR = 0
-    phiOne = 1
-    phiJ = 0 
+    
     if len(G) != 0:
-        print(G)
         if muOne <= muR:
             query_list = [0]
             query_list , min_value = cascade(query_list,Li,Ri,Qi,Pi,Vi)
@@ -198,7 +189,7 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                     query_list.append(0)
                 return query_list
 
-def testSnhit():
+def testhit():
     Li = [1,5,6,7]
     Ri = [8,8.5,19,20]
     Qi = [111,10,1,2]
@@ -206,7 +197,7 @@ def testSnhit():
     Pi = ['1','1','1','1']
     print(approximationAlgorithm(Li,Ri,Qi,Pi,Vi))
 
-testSnhit()
+testhit()
 
 
 def testCascade():
