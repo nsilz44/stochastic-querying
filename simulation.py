@@ -7,7 +7,7 @@ def minimumProblemSimulation(Li,Ri,Pi):
     for i in range(0,n):
         value = prob(Pi[i],Li[i],Ri[i])
         Vi.append(value)
-    return (Vi)
+    return Vi
 
 '''p= 10 * ['1']
 m = minimumProblem(10,10,1,0,p)

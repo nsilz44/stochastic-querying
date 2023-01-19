@@ -2,6 +2,7 @@ from probabilities import *
 from instanceGenerator import *
 from simulation import *
 from optimalQuerySet import *
+from algortihms import *
 import pandas as pd
 import time
 import itertools
@@ -57,6 +58,7 @@ def testMinInstance(Li,Ri,Qi,Pi):
     print(min_index)
     print(queries)
     return
+
 def makeMinimumProblem(a):
     if a == 1:
         print('Try again')
@@ -154,8 +156,39 @@ def createInstanceMinimumProblem():
     filename = path + str(random.randint(0,10000)) + str(num_of_intervals) +'-'+ str(int(salt_max)) +'-'+ str(int(max(Qi))) +'-'+ Pi[0] +'.csv'
     df.to_csv(filename)
     return Li,Ri,Qi,probability_distribution_list
+def calcQueryCost(query_set,Qi):
+    cost = 0
+    for i in query_set:
+        cost = cost + Qi[i]
+    return cost
+def testMinAlgorithm(Li,Ri,Qi,Pi):
+    num_simulations = int(input('How many simulations would you like to test? '))
+    min_index_list = []
+    opt_query_list = []
+    query_list = []
+    for k in range(0,num_simulations):
+        Vi = minimumProblemSimulation(Li,Ri,Pi)
+        opt_minimal_index, opt_query_set = minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi)
+        query_set = approximationAlgorithm(Li,Ri,Qi,Pi,Vi)
+        min_index_list.append(opt_minimal_index)
+        opt_query_list.append(opt_query_set)
+        query_list.append(query_set)
+    opt_costs = []
+    algorithm_costs = []
+    for i in opt_query_list:
+        opt_costs.append(calcQueryCost(i,Qi))
+    for j in query_list:
+        algorithm_costs.append(calcQueryCost(j,Qi))
+    print(opt_costs)
+    print(algorithm_costs)
 
-    
+Li = [1,9,10,11,12]
+Ri = [13,25,26,27,28]
+Qi = [10,1,3,2,1]
+Pi = ['1'] * len(Li)
+
+testMinAlgorithm(Li,Ri,Qi,Pi)
+
 def sortingProblem():
     print('lol')
 
@@ -171,4 +204,4 @@ def test():
     print(q)
     print(len(q))
 #test()
-start(0)
+#start(0)

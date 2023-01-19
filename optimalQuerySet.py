@@ -16,6 +16,7 @@ def minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi):
     i = 0
     query_set = []
     cost = 0
+    #print(Li[i],min_value,type(Li[i]),type(min_value))
     while Li[i] <= min_value:
         if Ri[i] >= min_value:
             query_set.append(i)
