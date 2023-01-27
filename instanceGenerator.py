@@ -46,3 +46,15 @@ def hypergraphOrientationProblem(num_of_intervals,num_of_edges,max_vertices_per_
 #p= 10 * [1]
 #print(minimumProblem(10,10,1,1,p))
 #print(hypergraphOrientationProblem(10,8,3,10,1,1,p))
+def makeInstance(num_of_intervals,salt):
+    li = [0]
+    Ri = [10]
+    current_point = salt
+    for i in range(1,num_of_intervals):
+        salt = randomUniform(current_point,current_point+ (10-current_point) *i/num_of_intervals)
+        current_point = salt
+        li.append(salt)
+        Ri.append(salt+10)
+    print(li)
+    print(Ri)
+#makeInstance(10,9.8)
