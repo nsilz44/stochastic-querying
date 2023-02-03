@@ -165,25 +165,25 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                 return query_list
             else:
                 R = list(range(1,n))
-                query_list = R.copy()
+                query_list = []
                 for j in R:
+                    query_list.append(j)
                     if Vi[j] <= Ri[0]:
                         query_list.append(0)
+                        query_list , min_value = cascade(query_list,Li,Ri,Qi,Pi,Vi)
+                        print(query_list)
                         return query_list
                 return query_list
         else:#####check
-            #print('case2.2')
-            query_list = list(range(1,n))
-            query_list.remove(costly_j)
-            for j in query_list:
+            query_list = []
+            R = list(range(1,n))
+            R.remove(costly_j)
+            #print(R)
+            for j in R:
+                query_list.append(j)
                 if Vi[j] <= Ri[0]:
                     query_list.append(0)
-                    current_min = Vi[0]
-                    for v in Vi:
-                        if v < current_min:
-                            current_min = v
-                    if current_min >= Li[costly_j]:
-                        query_list.append(costly_j)
+                    query_list , min_value = cascade(query_list,Li,Ri,Qi,Pi,Vi)
                     return query_list
             #case 3.1
             if phiOne <= phiJ:

@@ -213,6 +213,8 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     print('comp ratrio heu: ' + str(ratioHeuristicAlgo))
     print('E[alg/opt]: '+ str(expectedCompAlgo))
     print('E[heu/opt]: '+ str(expectedCompHeuristic))
+    print(query_list)
+    print(heuristic_query_list)
     '''min_index = pd.DataFrame(list(itertools.chain(*min_index_list)))
     #nu = min_index[0].value_counts()
     #ax = sns.barplot(x=nu.index,y=nu).set(title='Plot of the minimum index',xlabel='index', ylabel='Count')
