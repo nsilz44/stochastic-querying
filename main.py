@@ -213,8 +213,8 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     print('comp ratrio heu: ' + str(ratioHeuristicAlgo))
     print('E[alg/opt]: '+ str(expectedCompAlgo))
     print('E[heu/opt]: '+ str(expectedCompHeuristic))
-    print(query_list)
-    print(heuristic_query_list)
+    #print(query_list)
+    #print(heuristic_query_list)
     '''min_index = pd.DataFrame(list(itertools.chain(*min_index_list)))
     #nu = min_index[0].value_counts()
     #ax = sns.barplot(x=nu.index,y=nu).set(title='Plot of the minimum index',xlabel='index', ylabel='Count')
@@ -258,6 +258,13 @@ Qi = [35,24,1,1,1,1,1,1,1,1]
 Pi = [1] * len(Li)
 print('Instance 4 case 2.2')
 testMinAlgorithm(Li,Ri,Qi,Pi)
+Li = [0, 9, 9.842954342697427, 9.880345642368884, 9.898653507399464, 9.923405535777032, 9.926463823230803, 9.928932208838772, 9.976420388118637, 9.994833285992518]
+Ri = [10, 12, 19.842954342697425, 19.880345642368884, 19.898653507399466, 19.923405535777032, 19.926463823230804, 19.928932208838773, 19.976420388118637, 19.99483328599252]
+Qi = [1,1,1,1,1,1,1,1,1,1]
+Pi = [1] * len(Li)
+print('Instance 5')
+testMinAlgorithm(Li,Ri,Qi,Pi)
+
 
 def sortingProblem():
     print('lol')

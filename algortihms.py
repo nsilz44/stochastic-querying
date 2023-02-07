@@ -2,6 +2,7 @@ from probabilities import *
 from itertools import permutations
 import numpy as np
 from simulation import *
+import pandas as pd
 
 ''' The algorithm to find an approximation to the minimal element problem section 3.1 
 Chaplick, S., Halldórsson, M. M., de Lima, M. S., & Tonoyan, T. (2021). 
@@ -84,9 +85,31 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
     else:
         largest_Q = np.argmax(Qi)
         if wR/2 <= largest_Q and largest_Q <= 3/4 * wR:
-            Gprime = largest_Q
+            Gprime = [largest_Q]
+            workG = Qi[largest_Q]
         else: #above not true
+            Qiseries = pd.Series(Qi).sort_values(ascending=True)[:]
             workG = 0
+            Gpossible = []
+            for ind, query in zip(Qiseries.index, Qiseries.to_numpy()):
+                Gpossible.append(ind)
+                workG = workG + query
+                if wR/4 <= workG:
+                    if workG < wR /2:
+                        R = list(range(1,n))
+                        Gprime = []
+                        for id in R:
+                            if id not in Gpossible:
+                                Gprime.append(id)
+                        workG = 0
+                        for i in Gprime:
+                            workG = workG + Qi[i]
+                        break
+                    Gprime = Gpossible.copy()
+                    break
+
+
+            '''workG = 0
             Gprime = []
             for i in range(1,n-1):
                 for Wi in permutations(range(1,n), i):
@@ -98,30 +121,31 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                         Gprime.extend(Wi)
                         break
                 if workG != 0:
-                    break
-            beta = workG / wR
-            primeHit = calcProbHit(Li,Ri,Pi,Gprime)
-            R = list(range(1,n))
-            m = calcProbHit(Li,Ri,Pi,R)
-            if primeHit >= beta * m:
-                G = Gprime.copy()
-            else:
-                for i in Gprime:
-                    R.remove(i)
-                G = R 
+                    break'''
+            #pd.Series(mylist).sort_values(ascending=True)[:]
+        beta = workG / wR
+        primeHit = calcProbHit(Li,Ri,Pi,Gprime)
+        R = list(range(1,n))
+        m = calcProbHit(Li,Ri,Pi,R)
+        if primeHit >= beta * m:
+            G = Gprime.copy()
+        else:
+            for i in Gprime:
+                R.remove(i)
+            G = R 
     k = 0 
     sumK = 0
     while sumK <= wR:
         sumK = sumK + Qi[k]
         k = k + 1
-    POne = calcProb(Pi[0],Li[k-1],Ri[0],Ri[0]-Li[0])
+    PrOne = calcProb(Pi[0],Li[k-1],Ri[0],Ri[0]-Li[0])
     R = list(range(1,n)) 
     PR = calcProbHit(Li,Ri,Pi,R)
-    muOne = 1 + (1 - PR) * POne * Qi[0] / wR
+    muOne = 1 + (1 - PR) * PrOne * Qi[0] / wR
     z = wR / Qi[0]
-    muR = 1 + (13/16) * z + (1 - PR) * (POne * (1 - z) + 13/16 * z - 1) 
-    pOne = 1 + POne * (1 - PR) * Qi[0] / wR
-    pR = (1-PR) * POne + PR + (1-POne+(PR*POne/4)) * z + (3*PR*POne/4) * (z/((3*z)+4))
+    muR = 1 + (13/16) * z + (1 - PR) * (PrOne * (1 - z) + 13/16 * z - 1) 
+    pOne = 1 + PrOne * (1 - PR) * Qi[0] / wR
+    pR = (1-PR) * PrOne + PR + (1-PrOne+(PR*PrOne/4)) * z + (3*PR*PrOne/4) * (z/((3*z)+4))
     pPrimeOne = calcProb(Pi[0],Li[costly_j],Ri[0],Ri[0]-Li[0])
     pJ = calcProb(Pi[costly_j],Li[costly_j],Ri[0],Ri[costly_j]-Li[costly_j])
     wRPrime = wR - Qi[costly_j]
@@ -205,7 +229,6 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                 if current_min <= Ri[0]:
                     query_list.append(0)
                 return query_list
-
 
 
 
@@ -355,6 +378,8 @@ def heuristicOneApproximationAlgorithm(Li,Ri,Qi,Pi,Vi):
                     return query_list
             return query_list  
 
+
+
 def testhit():
     Li = [0, 9.815421312880146, 9.843662412508552, 9.84528093866387, 9.905831711422326, 9.907239868130803, 9.941693807153053, 9.982184977950723, 9.982616317462947, 9.983592476481835]
     Ri = [10, 19.815421312880147, 19.84366241250855, 19.84528093866387, 19.905831711422326, 19.9072398681308, 19.94169380715305, 19.982184977950723, 19.98261631746295, 19.983592476481835]
@@ -363,3 +388,12 @@ def testhit():
     Vi = minimumProblemSimulation(Li,Ri,Pi)
     print(approximationAlgorithm(Li,Ri,Qi,Pi,Vi))
 #testhit()
+
+def newhit():
+    Li = [0, 9.804981484093497, 9.808777503284773, 9.831721725114067, 9.853301707684647, 9.853369739851248, 9.866552659061758, 9.905522824202134, 9.942362694502572, 9.95757069328152, 9.967860135910726, 9.969765139341945, 9.975372585037807, 9.97794358011316, 9.977982353979277, 9.986025539763457, 9.993985696355375, 9.995656353993654, 9.997651057879093, 9.998090009008589]
+    Ri = [10, 19.804981484093496, 19.808777503284773, 19.831721725114065, 19.853301707684647, 19.853369739851246, 19.86655265906176, 19.905522824202134, 19.94236269450257, 19.957570693281518, 19.967860135910726, 19.969765139341945, 19.975372585037807, 19.977943580113163, 19.97798235397928, 19.986025539763457, 19.993985696355374, 19.995656353993652, 19.997651057879093, 19.99809000900859]
+    Qi = [100,28,1,1,6,2,1,3,1,1,1,1,1,1,1,1,1,1,1,1]
+    Pi = [1] * len(Li)
+    Vi = minimumProblemSimulation(Li,Ri,Pi)
+    print(approximationAlgorithm(Li,Ri,Qi,Pi,Vi))
+#newhit()

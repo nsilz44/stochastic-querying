@@ -57,4 +57,4 @@ def makeInstance(num_of_intervals,salt):
         Ri.append(salt+10)
     print(li)
     print(Ri)
-#makeInstance(10,9.8)
+#makeInstance(20,9.8)
