@@ -267,29 +267,40 @@ def heuristicOneApproximationAlgorithm(Li,Ri,Qi,Pi,Vi):
         if wR/2 <= largest_Q and largest_Q <= 3/4 * wR:
             Gprime = largest_Q
         else: #above not true
+           largest_Q = np.argmax(Qi)
+        if wR/2 <= largest_Q and largest_Q <= 3/4 * wR:
+            Gprime = [largest_Q]
+            workG = Qi[largest_Q]
+        else: #above not true
+            Qiseries = pd.Series(Qi).sort_values(ascending=True)[:]
             workG = 0
-            Gprime = []
-            for i in range(1,n-1):
-                for Wi in permutations(range(1,n), i):
-                    sum = 0
-                    for i in Wi:
-                        sum += Qi[i]
-                    if wR/2 <= sum and sum <= 3/4 * wR:
-                        workG = sum
-                        Gprime.extend(Wi)
+            Gpossible = []
+            for ind, query in zip(Qiseries.index, Qiseries.to_numpy()):
+                Gpossible.append(ind)
+                workG = workG + query
+                if wR/4 <= workG:
+                    if workG < wR /2:
+                        R = list(range(1,n))
+                        Gprime = []
+                        for id in R:
+                            if id not in Gpossible:
+                                Gprime.append(id)
+                        workG = 0
+                        for i in Gprime:
+                            workG = workG + Qi[i]
                         break
-                if workG != 0:
+                    Gprime = Gpossible.copy()
                     break
-            beta = workG / wR
-            primeHit = calcProbHit(Li,Ri,Pi,Gprime)
-            R = list(range(1,n))
-            m = calcProbHit(Li,Ri,Pi,R)
-            if primeHit >= beta * m:
-                G = Gprime.copy()
-            else:
-                for i in Gprime:
-                    R.remove(i)
-                G = R 
+        beta = workG / wR
+        primeHit = calcProbHit(Li,Ri,Pi,Gprime)
+        R = list(range(1,n))
+        m = calcProbHit(Li,Ri,Pi,R)
+        if primeHit >= beta * m:
+            G = Gprime.copy()
+        else:
+            for i in Gprime:
+                R.remove(i)
+            G = R 
     k = 0 
     sumK = 0
     while sumK <= wR:
@@ -395,5 +406,5 @@ def newhit():
     Qi = [100,28,1,1,6,2,1,3,1,1,1,1,1,1,1,1,1,1,1,1]
     Pi = [1] * len(Li)
     Vi = minimumProblemSimulation(Li,Ri,Pi)
-    print(approximationAlgorithm(Li,Ri,Qi,Pi,Vi))
-#newhit()
+    print(heuristicOneApproximationAlgorithm(Li,Ri,Qi,Pi,Vi))
+newhit()
