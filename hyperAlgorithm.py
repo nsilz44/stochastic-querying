@@ -32,4 +32,8 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
            M.append(i)
         i = i + 1
     # Line 2
-    
+    solver = pywraplp.Solver.CreateSolver('GLOP')
+    if not solver:
+        print('Not')
+        return
+     
