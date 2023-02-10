@@ -78,13 +78,17 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
     if status == pywraplp.Solver.OPTIMAL:
         v1 = []
         v05= []
+        v0 = []
         for j in range(data['num_vars']):
             if x[j].solution_value() == 1:
                 v1.append(j)
             if x[j].solution_value() == 0.5:
                 v05.append(j)
-        print(v1)
-        print(v05)
+            if x[j].solution_value() == 0:
+                v0.append(j)
+        print('v1',v1)
+        print('v0.5',v05)
+        print('v0',v0)
     else:
         print('The problem does not have an optimal solution.')
     print(M)
@@ -96,19 +100,19 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
             x = False
             if v in M or v in v1:
                 x = True
-            querylist.append(x)
+                querylist.append(v)
             #print(Vi[v],x)
         #print()
     #print(Ei)
-    #print(querylist)
+    print(querylist)
 
 # Li,Ri,Qi,Pi,Mi,d,Ei,Vi
 Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
 Qi = [1] * len(Li)
 Pi = [1] * len(Li)
-Mi = [0,0,0,0,0,0,0,0,0,0]
+Mi = [0,0.75,0,0,0,0,0,0,0.75,0]
 d = 0.75
-Ei = [[1,2,3],[0,5,7],[3,4,5],[8,9],[0,4,5,6,7],[1,6,9],[4,7],[4,8]]
+Ei = [[2,3,4,5],[1,8],[0,1,5,8],[6,9],[3,6,7]]
 Vi = minimumProblemSimulation(Li,Ri,Pi)
 thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
