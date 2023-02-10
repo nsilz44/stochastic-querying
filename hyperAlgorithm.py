@@ -33,17 +33,21 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
            M.append(i)
         i = i + 1
     # Line 2
-    solver = pywraplp.Solver.CreateSolver('SCIP')
+    solver = pywraplp.Solver.CreateSolver('GLOP')
     if not solver:
         print('Not')
         return
     newEi = copy.deepcopy(Ei)
+    
     for v in M:
         for edge in range(0,len(newEi)):
             if v in newEi[edge]:
                 newEi[edge].remove(v)
-    LEi,REi = getEndpoints(newEi)
+    for edge in newEi:
+        if len(edge)==0:
+            newEi.remove(edge)
     print(newEi)
+    LEi,REi = getEndpoints(newEi)
     data = {}
     constrMatrix = []
     for edge in range(0,len(newEi)):
@@ -60,48 +64,50 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
     infinity = solver.infinity()
     x = {}
     for j in range(data['num_vars']):
-        x[j] = solver.IntVar(0, infinity, 'x[%i]' % j)
-
+        x[j] = solver.NumVar(0, infinity, 'x[%i]' % j)
+ 
     for i in range(data['num_constraints']):
         constraint_expr = [data['constraint_coeffs'][i][j] * x[j] for j in range(data['num_vars'])]
         solver.Add(sum(constraint_expr) >= data['bounds'][i])
-
-    objective = solver.Objective()
-    for j in range(data['num_vars']):
-        objective.SetCoefficient(x[j], data['obj_coeffs'][j])
-    objective.SetMinimization()
+    print('Number of constraints =', solver.NumConstraints())
+    obj_expr = [data['obj_coeffs'][j] * x[j] for j in range(data['num_vars'])]
+    solver.Minimize(solver.Sum(obj_expr))
 
     status = solver.Solve()
 
     if status == pywraplp.Solver.OPTIMAL:
         v1 = []
+        v05= []
         for j in range(data['num_vars']):
             if x[j].solution_value() == 1:
                 v1.append(j)
+            if x[j].solution_value() == 0.5:
+                v05.append(j)
         print(v1)
+        print(v05)
     else:
         print('The problem does not have an optimal solution.')
     print(M)
     querylist = []
     for edge in Ei:
-        print(edge)
+        #print(edge)
 
         for v in edge:
             x = False
             if v in M or v in v1:
                 x = True
             querylist.append(x)
-            print(Vi[v],x)
-        print()
-    print(Ei)
-    print(querylist)
+            #print(Vi[v],x)
+        #print()
+    #print(Ei)
+    #print(querylist)
 
 # Li,Ri,Qi,Pi,Mi,d,Ei,Vi
 Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
 Qi = [1] * len(Li)
 Pi = [1] * len(Li)
-Mi = [1,0,0.5,0,0,1,0,0.5,0,0]
+Mi = [0,0,0,0,0,0,0,0,0,0]
 d = 0.75
 Ei = [[1,2,3],[0,5,7],[3,4,5],[8,9],[0,4,5,6,7],[1,6,9],[4,7],[4,8]]
 Vi = minimumProblemSimulation(Li,Ri,Pi)
