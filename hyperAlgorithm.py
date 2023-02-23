@@ -12,9 +12,63 @@ def getEndpoints(Ei):
     LEi = []
     REi = []
     for edge in Ei:
-        LEi.append(edge[0])
-        REi.append(edge[-1])
+        if len(edge) == 1:
+            LEi.append(edge[0])
+            REi.append(edge[-1])
+        for i in range(1,len(edge)):
+            LEi.append(edge[0])
+            REi.append(edge[i])
     return LEi,REi
+
+def findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,num_iterations):
+    sum_mandatory_probabilities = [0] * len(Li)
+    for i in range(num_iterations):
+        query_list = []
+        Vi = minimumProblemSimulation(Li,Ri,Pi)
+        for edge in Ei:
+            edgeVi = []
+            edgeLi = []
+            edgeRi = []
+            edgeQi = []
+            for v in edge:
+                edgeLi.append(Li[v])
+                edgeRi.append(Ri[v])
+                edgeVi.append(Vi[v])
+                edgeQi.append(Qi[v])
+            # Does option a
+            n = len(edge)
+            min_value = min(edgeVi)
+            j = 0
+            edge_query_set = []
+            cost = 0
+            #print(Li[i],min_value,type(Li[i]),type(min_value))
+            while edgeLi[j] <= min_value:
+                if edgeRi[j] >= min_value:
+                    edge_query_set.append(j)
+                    cost += edgeQi[j]
+                j += 1
+                if j == n:
+                    break
+            # Checks whether option B is better
+            remove_one = True
+            new_cost = sum(edgeQi) - edgeQi[0]
+            for j in range(1,n):
+                # value which is a mandatory query against the first interval
+                if edgeVi[j] <= edgeRi[0]:
+                    remove_one = False
+                    break
+            #checks option c happens (query all)
+            if (remove_one == True) and (new_cost < cost):
+                edge_query_set = list(range(1,n))
+            for query in edge_query_set:
+                query_list.append(edge[query])
+        for idx in range(len(Li)):
+            if idx in query_list:
+                sum_mandatory_probabilities[idx] += 1
+    mandatory_probabilities = []
+    for idx in sum_mandatory_probabilities:
+        mandatory_probabilities.append(idx/num_iterations)
+    return mandatory_probabilities
 
 # list Li -> list of interval left endpoint
 # list Ri -> list of interval right endpoint
@@ -32,13 +86,13 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
         if man_probability >= d:
            M.append(i)
         i = i + 1
+    print('M',M)
     # Line 2
     solver = pywraplp.Solver.CreateSolver('GLOP')
     if not solver:
         print('Not')
         return
-    newEi = copy.deepcopy(Ei)
-    
+    newEi = copy.deepcopy(Ei) 
     for v in M:
         for edge in range(0,len(newEi)):
             if v in newEi[edge]:
@@ -50,17 +104,17 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
     LEi,REi = getEndpoints(newEi)
     data = {}
     constrMatrix = []
-    for edge in range(0,len(newEi)):
+    for endpoint in range(0,len(LEi)):
         zero = np.zeros(len(Li))
-        zero[LEi[edge]] = 1
-        zero[REi[edge]] = 1
+        zero[LEi[endpoint]] = 1
+        zero[REi[endpoint]] = 1
         constrMatrix.append(zero)
     print(constrMatrix)
     data['constraint_coeffs'] = constrMatrix
-    data['bounds'] = [1] * len(newEi)
+    data['bounds'] = [1] * len(LEi)
     data['obj_coeffs'] = Qi
     data['num_vars'] = len(Qi)
-    data['num_constraints'] = len(newEi)
+    data['num_constraints'] = len(LEi)
     infinity = solver.infinity()
     x = {}
     for j in range(data['num_vars']):
@@ -111,8 +165,11 @@ Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
 Qi = [1] * len(Li)
 Pi = [1] * len(Li)
-Mi = [0,0.75,0,0,0,0,0,0,0.75,0]
-d = 0.75
+d = 0.95
 Ei = [[2,3,4,5],[1,8],[0,1,5,8],[6,9],[3,6,7]]
 Vi = minimumProblemSimulation(Li,Ri,Pi)
+Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
 thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
+
+
+
