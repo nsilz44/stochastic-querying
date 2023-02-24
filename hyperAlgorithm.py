@@ -70,6 +70,19 @@ def findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,num_iterations):
         mandatory_probabilities.append(idx/num_iterations)
     return mandatory_probabilities
 
+
+def cascade_edge(querylist,Li,Vi,edge):
+    querylist.append(edge[0])
+    min_value = Vi[edge[0]]
+    for i in range(1,len(edge)):
+        if min_value < Li[edge[i]]:
+            break
+        else:
+            querylist.append(edge[i])
+            if Vi[edge[i]] < min_value:
+                min_value = Vi[edge[i]]
+    return querylist
+
 # list Li -> list of interval left endpoint
 # list Ri -> list of interval right endpoint
 # list Qi -> list of query cost per interval
@@ -86,7 +99,6 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
         if man_probability >= d:
            M.append(i)
         i = i + 1
-    print('M',M)
     # Line 2
     solver = pywraplp.Solver.CreateSolver('GLOP')
     if not solver:
@@ -145,11 +157,9 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
         print('v0',v0)
     else:
         print('The problem does not have an optimal solution.')
-    print(M)
     querylist = []
     for edge in Ei:
         #print(edge)
-
         for v in edge:
             x = False
             if v in M or v in v1:
@@ -157,19 +167,48 @@ def thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi):
                 querylist.append(v)
             #print(Vi[v],x)
         #print()
-    #print(Ei)
+    print('M',M)
     print(querylist)
+    print(Ei)
+    for edge in Ei:
+        if edge[0] in querylist:
+            querylist = cascade_edge(querylist,Li,Vi,edge)
+        else:
+            cascade = False
+            for i in range(1,len(edge)):
+                if edge[i] in querylist:
+                    if Vi[edge[i]] <= Ri[edge[0]]:
+                        cascade = True
+                        break
+            if cascade == True:
+                querylist = cascade_edge(querylist,Li,Vi,edge)
+            else:
+                for i in range(1,len(edge)):
+                    if edge[i] not in querylist:
+                        querylist.append(edge[i])
+                        if Vi[edge[i]] <= Ri[edge[0]]:
+                            cascade = True
+                            break
+                if cascade == True:
+                    querylist = cascade_edge(querylist,Li,Vi,edge)
+    final_query_list = []
+    for idx in range(len(Li)):
+        if idx in querylist:
+            final_query_list.append(idx)
+    print(Vi)
+    return final_query_list
+
 
 # Li,Ri,Qi,Pi,Mi,d,Ei,Vi
 Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
-Qi = [1] * len(Li)
+Qi = [100,50,25,12,6,3,2,1,1,1]
 Pi = [1] * len(Li)
-d = 0.95
-Ei = [[2,3,4,5],[1,8],[0,1,5,8],[6,9],[3,6,7]]
-Vi = minimumProblemSimulation(Li,Ri,Pi)
+d = 0.99
+Ei = [[1,8]]
 Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
-thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
+Vi = minimumProblemSimulation(Li,Ri,Pi)
+print(thresholdAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi))
 
 
 
