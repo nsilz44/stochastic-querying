@@ -35,33 +35,22 @@ def findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,num_iterations):
                 edgeRi.append(Ri[v])
                 edgeVi.append(Vi[v])
                 edgeQi.append(Qi[v])
-            # Does option a
-            n = len(edge)
             min_value = min(edgeVi)
-            j = 0
-            edge_query_set = []
-            cost = 0
-            #print(Li[i],min_value,type(Li[i]),type(min_value))
-            while edgeLi[j] <= min_value:
-                if edgeRi[j] >= min_value:
-                    edge_query_set.append(j)
-                    cost += edgeQi[j]
-                j += 1
-                if j == n:
+            for a in range(len(edge)):
+                if edgeVi[a] == min_value:
+                    smallest_index = a
                     break
-            # Checks whether option B is better
-            remove_one = True
-            new_cost = sum(edgeQi) - edgeQi[0]
-            for j in range(1,n):
-                # value which is a mandatory query against the first interval
-                if edgeVi[j] <= edgeRi[0]:
-                    remove_one = False
-                    break
-            #checks option c happens (query all)
-            if (remove_one == True) and (new_cost < cost):
-                edge_query_set = list(range(1,n))
-            for query in edge_query_set:
-                query_list.append(edge[query])
+            for k in range(len(edge)):
+                if k == smallest_index:
+                    for j in range(len(edge)):
+                        if j == k:
+                            continue
+                        elif edgeVi[j] <= edgeRi[k]:
+                            query_list.append(edge[k])
+                            break
+                else:
+                    if edgeVi[smallest_index] <= edgeLi[k]:
+                        query_list.append(edge[k])
         for idx in range(len(Li)):
             if idx in query_list:
                 sum_mandatory_probabilities[idx] += 1
@@ -314,8 +303,8 @@ Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
 Qi = [1] * len(Li)
 Pi = [1] * len(Li)
-d = 0.99
-Ei = [[1,8],[2,8],[1,2]]
+d = 1
+Ei = [[0,1],[1,2],[2,3],[3,4],[0,4]]
 Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
 Vi = minimumProblemSimulation(Li,Ri,Pi)
 print(thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi))
