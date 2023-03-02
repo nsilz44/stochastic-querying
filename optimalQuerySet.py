@@ -78,24 +78,31 @@ def queryRight(Ri,Vi,edge):
             query_set.append(edge[i])
     return query_set
 def hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei):
+    # empty list
     query_sets = [[]]
     for edge in Ei:
         new_query_sets = []
+        # additions to query
         cascade_query_set = cascadeEdge([],Li,Vi,edge)
         right_query_set = queryRight(Ri,Vi,edge)
+        # loops over all current viable queries
         for query_set in query_sets:
             new_query_set = query_set.copy()
             for query in cascade_query_set:
                 if query not in query_set:
                     new_query_set.append(query)
+            # ensures all query sets in list are sorted
             new_query_set.sort()
+            # adds unique lists to avoid duplicates
             if new_query_set not in new_query_sets:
                 new_query_sets.append(new_query_set)
             new_query_set = query_set.copy()
+            # same for the right queries
             if right_query_set != []:
                 for query in right_query_set:
                     if query not in query_set:
                         new_query_set.append(query)
+                # ensures all query sets in list are sorted
                 new_query_set.sort()
                 if new_query_set not in new_query_sets:
                     new_query_sets.append(new_query_set)
