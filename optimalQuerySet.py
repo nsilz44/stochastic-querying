@@ -55,3 +55,71 @@ def testOptionB():
     print(minimumProblemOptimalQuerySet([0,4,4.5,6],[10,20,21,22],[5,12,13,12],[5,1,1,1]))
     print(minimumProblemOptimalQuerySet([0,2,6],[10,12,14],[4,4,12],[1,1,10]))
 #testOptionB()
+
+def cascadeEdge(querylist,Li,Vi,edge):
+    querylist.append(edge[0])
+    min_value = Vi[edge[0]]
+    for i in range(1,len(edge)):
+        if min_value < Li[edge[i]]:
+            break
+        else:
+            querylist.append(edge[i])
+            if Vi[edge[i]] < min_value:
+                min_value = Vi[edge[i]]
+    return querylist
+
+def queryRight(Ri,Vi,edge):
+    idx_zero_right_endpoint = Ri[edge[0]]
+    query_set = []
+    for i in range(1,len(edge)):
+        if idx_zero_right_endpoint >= Vi[edge[i]]:
+            return []
+        else:
+            query_set.append(edge[i])
+    return query_set
+def hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei):
+    query_sets = [[]]
+    for edge in Ei:
+        new_query_sets = []
+        cascade_query_set = cascadeEdge([],Li,Vi,edge)
+        right_query_set = queryRight(Ri,Vi,edge)
+        for query_set in query_sets:
+            new_query_set = query_set.copy()
+            for query in cascade_query_set:
+                if query not in query_set:
+                    new_query_set.append(query)
+            new_query_set.sort()
+            if new_query_set not in new_query_sets:
+                new_query_sets.append(new_query_set)
+            new_query_set = query_set.copy()
+            if right_query_set != []:
+                for query in right_query_set:
+                    if query not in query_set:
+                        new_query_set.append(query)
+                new_query_set.sort()
+                if new_query_set not in new_query_sets:
+                    new_query_sets.append(new_query_set)
+        query_sets = new_query_sets
+        #print(edge,query_sets,cascade_query_set,right_query_set)
+    min_cost = 10000000000000000000000000000000000000000000000000000000000000000
+    best_query_set = []
+    print(query_sets)
+    for query_set in query_sets:
+        cost = 0
+        for query in query_set:
+            cost += Qi[query]
+        if cost < min_cost:
+            min_cost = cost
+            best_query_set = query_set.copy()
+    return best_query_set,min_cost
+
+
+
+
+Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
+Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
+Qi = [1] * len(Li)
+Pi = [1] * len(Li)
+Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,8],[1,6,7],[0,4],[5,9]]
+Vi = minimumProblemSimulation(Li,Ri,Pi)
+print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))
