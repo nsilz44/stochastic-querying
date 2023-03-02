@@ -110,7 +110,7 @@ def hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei):
         #print(edge,query_sets,cascade_query_set,right_query_set)
     min_cost = 10000000000000000000000000000000000000000000000000000000000000000
     best_query_set = []
-    print(query_sets)
+    #print(query_sets)
     for query_set in query_sets:
         cost = 0
         for query in query_set:
@@ -129,4 +129,4 @@ Qi = [1] * len(Li)
 Pi = [1] * len(Li)
 Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,8],[1,6,7],[0,4],[5,9]]
 Vi = minimumProblemSimulation(Li,Ri,Pi)
-print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))
+#print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))
