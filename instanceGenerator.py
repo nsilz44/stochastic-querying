@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import networkx as nx
 
 # function to exclude lower number from random.uniform to hold assumptions
 def randomUniform(low,high):
@@ -37,11 +38,15 @@ def hypergraphOrientationProblem(num_of_intervals,num_of_edges,max_vertices_per_
         Ri.append(current_point)
     Ei = []
     for i in range (0,num_of_edges):
-        verticesInEdge = random.randint(1,max_vertices_per_edge)
+        verticesInEdge = random.randint(2,max_vertices_per_edge)
         edge = list(np.random.permutation(np.arange(0,num_of_intervals))[:verticesInEdge])
+        edge.sort()
         Ei.append(edge)
-    
-    return Li,Ri,Ei,Qi,probability_distribution_list
+    print('Li =',Li)
+    print('Ri =',Ri)
+    print('Qi =',Qi)
+    print('Pi =',probability_distribution_list)
+    print('Ei =',Ei)
 
 #p= 10 * [1]
 #print(minimumProblem(10,10,1,1,p))
@@ -58,3 +63,28 @@ def makeInstance(num_of_intervals,salt):
     print(li)
     print(Ri)
 #makeInstance(20,9.8)
+
+def bipartiteInstance(num_of_intervals,salt_max,Qi,Pi,n,m,p):
+    Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,Pi)
+    G = nx.bipartite.random_graph(n,m,p)
+    Ei = [list(e) for e in G.edges]
+    print('Li =',Li)
+    print('Ri =',Ri)
+    print('Qi =',Qi)
+    print('Pi =',Pi)
+    print('Ei =',Ei)
+
+#bipartiteInstance(20,20,[1]*20,[1]*20,10,10,0.5)
+
+def pathInstance(num_of_intervals,salt_max,Qi,Pi):
+    Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,Pi)
+    G = nx.path_graph(num_of_intervals)
+    Ei = [list(e) for e in G.edges]
+    print('Li =',Li)
+    print('Ri =',Ri)
+    print('Qi =',Qi)
+    print('Pi =',Pi)
+    print('Ei =',Ei)
+
+#pathInstance(30,5,[1]*30,[1]*30)
+#hypergraphOrientationProblem(20,15,5,10,[1]*20,[1]*20)
