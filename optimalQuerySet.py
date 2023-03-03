@@ -118,7 +118,7 @@ def hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei):
         if cost < min_cost:
             min_cost = cost
             best_query_set = query_set.copy()
-    return best_query_set,min_cost
+    return best_query_set
 
 
 
@@ -127,6 +127,6 @@ Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852
 Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
 Qi = [1] * len(Li)
 Pi = [1] * len(Li)
-Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,8],[1,6,7],[0,4],[5,9]]
+Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,8],[1,6,7],[0,4],[2,9]]
 Vi = minimumProblemSimulation(Li,Ri,Pi)
 #print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))

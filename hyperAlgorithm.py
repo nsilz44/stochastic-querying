@@ -293,18 +293,19 @@ def queryCalculate(query_set):
         cost += Qi[query]
     return cost
 # Li,Ri,Qi,Pi,Mi,d,Ei,Vi
-Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
-Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
-Qi = [1] * len(Li)
-Pi = [1] * len(Li)
-d = 2 / (1 + math.sqrt(5))
-Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,4],[5,9]]
-Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
-Vi = minimumProblemSimulation(Li,Ri,Pi)
-q = thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
-print(q,queryCalculate(q))
-q = bestVCAlgorithm(Li,Ri,Qi,Pi,Mi,Ei,Vi)
-print(q,queryCalculate(q))
-print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))
+def testHyper():
+    Li = [8.954043650674025, 12.544740640790216, 16.526478330884725, 23.571122884852443, 24.53476179983959, 29.31006694062271, 30.468548517748523, 34.98627619335313, 41.807224776281615, 46.507874846272344]
+    Ri = [55.292546691529026, 63.171997468128986, 70.33326216010276, 77.17071823078149, 80.58724735945381, 83.06502423225356, 88.41442538519962, 93.76809603248427, 94.86608777800942, 100.72436167731871]
+    Qi = [1] * len(Li)
+    Pi = [1] * len(Li)
+    d = 2 / (1 + math.sqrt(5))
+    Ei = [[0,3],[3,5],[5,7],[0,9],[1,3],[4,6],[1,8],[1,9],[0,4],[5,9]]
+    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
+    Vi = minimumProblemSimulation(Li,Ri,Pi)
+    q = thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
+    print(q,queryCalculate(q))
+    q = bestVCAlgorithm(Li,Ri,Qi,Pi,Mi,Ei,Vi)
+    print(q,queryCalculate(q))
+    print(hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei))
 
 
