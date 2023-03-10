@@ -161,8 +161,9 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
         else:
             #print('case 1.2')
             #query G
-            query_list = G.copy()
+            query_list = []
             for i in G:
+                query_list.append(i)
                 if Vi[i] <= Ri[0]:
                     query_list.append(0)
                     query_list , min_value = cascade(query_list,Li,Ri,Qi,Pi,Vi)
@@ -223,9 +224,6 @@ def approximationAlgorithm(Li,Ri,Qi,Pi,Vi):
             else:
                 query_list.append(costly_j)
                 current_min = Vi[costly_j]
-                for v in Vi:
-                    if v < current_min:
-                        current_min = v
                 if current_min <= Ri[0]:
                     query_list.append(0)
                 return query_list

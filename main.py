@@ -382,4 +382,5 @@ def test():
 
 #testBipartiteInstances()
 #testPathInstance()
-testHyperGraphs()
+#testHyperGraphs()
+test_smallest_element()
