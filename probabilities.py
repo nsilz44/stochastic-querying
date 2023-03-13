@@ -38,29 +38,31 @@ def bradfordProb(l_endpoint,r_endpoint):
     r = bradford.rvs(c,size=1)
     return l_endpoint + r[0] * (r_endpoint-l_endpoint)
 
+betaA, betaB = 2, 0.8
+betaRv = beta(betaA, betaB)
 def calcBetaProb(l_endpoint,r_endpoint,range):
-    a, b = 2, 0.8
-    rv = beta(a, b)
-    return(rv.cdf((r_endpoint - l_endpoint)/range))
+    return(betaRv.cdf((r_endpoint - l_endpoint)/range))
 
+semiRv = semicircular()
 def calcSemiCircularProb(l_endpoint,r_endpoint,range):
-    rv = semicircular()
-    return(rv.cdf(((r_endpoint - l_endpoint)/range)*2 -1))
+    
+    return(semiRv.cdf(((r_endpoint - l_endpoint)/range)*2 -1))
+
+gaussA,gaussB,gaussC,gaussZ = 10, 3, 2, 5
+gaussRv = gausshyper(gaussA,gaussB,gaussC,gaussZ)
 
 def calcGausshyperProb(l_endpoint,r_endpoint,range):
-    a, b, c, z = 10, 3, 2, 5
-    rv = gausshyper(a,b,c,z)
-    return(rv.cdf((r_endpoint - l_endpoint)/range))
+    return(gaussRv.cdf((r_endpoint - l_endpoint)/range))
 
+rDistC = 1.6
+rDistRv = rdist(rDistC)
 def calcRdistProb(l_endpoint,r_endpoint,range):
-    c = 1.6
-    rv = rdist(c)
-    return(rv.cdf(((r_endpoint - l_endpoint)/range)*2 -1))
+    return(rDistRv.cdf(((r_endpoint - l_endpoint)/range)*2 -1))
 
+bradfordC = 15
+bradfordRv = bradford(bradfordC)
 def calcBradfordProb(l_endpoint,r_endpoint,range):
-    c = 15
-    rv = bradford(c)
-    return(rv.cdf((r_endpoint - l_endpoint)/range))
+    return(bradfordRv.cdf((r_endpoint - l_endpoint)/range))
 
 def prob(probability_type,l_endpoint,r_endpoint):
     switch={
