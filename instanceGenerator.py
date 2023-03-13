@@ -60,9 +60,9 @@ def makeInstance(num_of_intervals,salt):
         current_point = salt
         li.append(salt)
         Ri.append(salt+10)
-    print(li)
-    print(Ri)
-#makeInstance(20,9.8)
+    print('Li =',li)
+    print('Ri =',Ri)
+#makeInstance(50,9.8)
 
 def bipartiteInstance(num_of_intervals,salt_max,Qi,Pi,n,m,p):
     Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,Pi)
