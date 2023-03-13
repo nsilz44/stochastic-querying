@@ -65,26 +65,34 @@ def calcBradfordProb(l_endpoint,r_endpoint,range):
     return(bradfordRv.cdf((r_endpoint - l_endpoint)/range))
 
 def prob(probability_type,l_endpoint,r_endpoint):
-    switch={
-    1: uniformProb(l_endpoint,r_endpoint),
-    2: betaProb(l_endpoint,r_endpoint),
-    3: semiCircularProb(l_endpoint,r_endpoint),
-    4: gausshyperProb(l_endpoint,r_endpoint),
-    5: rdistProb(l_endpoint,r_endpoint),
-    6: bradfordProb(l_endpoint,r_endpoint),
-       }
-    return switch.get(probability_type,'not available')
+    if probability_type == 1:
+        r = uniformProb(l_endpoint,r_endpoint)
+    elif probability_type == 2:
+        r = betaProb(l_endpoint,r_endpoint)
+    elif probability_type == 3:
+        r = semiCircularProb(l_endpoint,r_endpoint)
+    elif probability_type == 4:
+        r = gausshyperProb(l_endpoint,r_endpoint)
+    elif probability_type == 5:
+        r = rdistProb(l_endpoint,r_endpoint)
+    elif probability_type == 6:
+        r = bradfordProb(l_endpoint,r_endpoint)
+    return r
 
 def calcProb(probability_type,l_endpoint,r_endpoint,range):
-    switch={
-    1: calcUniformProb(l_endpoint,r_endpoint,range),
-    2: calcBetaProb(l_endpoint,r_endpoint,range),
-    3: calcSemiCircularProb(l_endpoint,r_endpoint,range),
-    4: calcGausshyperProb(l_endpoint,r_endpoint,range),
-    5: calcRdistProb(l_endpoint,r_endpoint,range),
-    6: calcBradfordProb(l_endpoint,r_endpoint,range)
-       }
-    return switch.get(probability_type,'not available')
+    if probability_type == 1:
+        r = calcUniformProb(l_endpoint,r_endpoint,range)
+    elif probability_type == 2:
+        r = calcBetaProb(l_endpoint,r_endpoint,range)
+    elif probability_type == 3:
+        r = calcSemiCircularProb(l_endpoint,r_endpoint,range)
+    elif probability_type == 4:
+        r = calcGausshyperProb(l_endpoint,r_endpoint,range)
+    elif probability_type == 5:
+        r = calcRdistProb(l_endpoint,r_endpoint,range)
+    elif probability_type == 6:
+        r = calcBradfordProb(l_endpoint,r_endpoint,range)
+    return r
 
 #print(prob(6,10,20))
 #print(calcProb(6,10,20,20))

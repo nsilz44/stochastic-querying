@@ -45,7 +45,7 @@ def testMinProbabilities():
     minDf = pd.concat([pd.DataFrame([['1.1.6',len(Li),'Descending high to low to uniform','All bradford distribution',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations]], columns=minDf.columns), minDf], ignore_index=True)
     print(minDf.head(6))
     minDf.to_csv('probabilityTests.csv')
-#testMinProbabilities()
+testMinProbabilities()
 
 def testMinIntervals():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
@@ -89,7 +89,7 @@ def testMinIntervals():
     print(minDf.head(6))
     minDf.to_csv('intervalsTests.csv')
 
-#testMinIntervals()
+testMinIntervals()
 def testSmallestElement():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
        'Expected of optimum query set', 'Expected of approximation algorithm',
