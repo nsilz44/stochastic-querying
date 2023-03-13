@@ -174,7 +174,12 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     opt_query_list = []
     query_list = []
     heuristic_query_list = []
+    time_start = time.time()
     for k in range(0,num_simulations):
+        time_finish = time.time()
+        if time_finish - time_start >= 600:
+            num_simulations = k
+            break
         Vi = minimumProblemSimulation(Li,Ri,Pi)
         opt_minimal_index, opt_query_set = minimumProblemOptimalQuerySet(Li,Ri,Vi,Qi)
         query_set = approximationAlgorithm(Li,Ri,Qi,Pi,Vi)
@@ -214,27 +219,7 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     print('comp ratrio heu: ' + str(ratioHeuristicAlgo))
     print('E[alg/opt]: '+ str(expectedCompAlgo))
     print('E[heu/opt]: '+ str(expectedCompHeuristic))
-    #print(query_list)
-    #print(heuristic_query_list)
-    '''min_index = pd.DataFrame(list(itertools.chain(*min_index_list)))
-    #nu = min_index[0].value_counts()
-    #ax = sns.barplot(x=nu.index,y=nu).set(title='Plot of the minimum index',xlabel='index', ylabel='Count')
-    #ax.bar_label(ax.containers[0])
-    #plt.show()
-    #plt.savefig('MinimumIndex.png')
-    optdata = pd.DataFrame(list(itertools.chain(*opt_query_list)))
-    optvalue = optdata[0].value_counts()
-    algodata = pd.DataFrame(list(itertools.chain(*query_list)))
-    algovalue = algodata[0].value_counts()
-    heuristicdata = pd.DataFrame(list(itertools.chain(*heuristic_query_list)))
-    heuristicvalue = heuristicdata[0].value_counts()
-    allValues = pd.DataFrame({'optimum':optvalue,'approx Algorithm':algovalue,'heuristic':heuristicvalue})
-    print(allValues)
-    df = pd.melt(allValues,id_vars=list(range(0,len(Li))), var_name="algorithm", value_name="count")
-    print(df)
-    bx = sns.catplot(x=list(range(0,len(Li))), y='count', hue='algorithm', data=df, kind='bar')
-    plt.show()'''
-
+    return expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations
 
 def test_smallest_element():
     Li = [0, 9.511885346386094, 9.60697009243154, 9.654185289779202, 9.730418461787217, 9.789282035843279, 9.885210832983462, 9.934999988303517, 9.971215924466557, 9.976376161303738]
@@ -383,4 +368,4 @@ def test():
 #testBipartiteInstances()
 #testPathInstance()
 #testHyperGraphs()
-test_smallest_element()
+#test_smallest_element()
