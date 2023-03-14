@@ -290,7 +290,7 @@ def testHyperGraphs():
     Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
     Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     Pi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 6, 13]]
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
     print('Hypergraph instance 1')
     testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
     Li = [9.340971873588874, 13.85204527081042, 22.024485898153088, 27.46203412811856, 35.018981769822446, 44.13933530455427, 45.90567243793295, 52.70718748552208, 57.45178485429612, 60.50562599395085, 66.57402534443152, 71.54619977053582, 76.03333299514014, 81.36560704997241, 85.59755355757856, 88.53018038347633, 91.64720567889647, 93.13887768427645, 94.77018319603796, 99.31790916593715]
@@ -306,9 +306,14 @@ def testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
     opt_query_list = []
     threshold_query_list = []
     bestvc_query_list = []
-    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,10000)
+    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
     d = 2 / (1 + math.sqrt(5))
+    time_start = time.time()
     for k in range(0,num_simulations):
+        time_finish = time.time()
+        if time_finish - time_start >= 600:
+            num_simulations = k
+            break
         Vi = minimumProblemSimulation(Li,Ri,Pi)
         opt_query_set = hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei)
         query_set = thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
@@ -335,18 +340,19 @@ def testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
         bestvc_costs.append(calcQueryCost(k,Qi))
     expectedOpt = sum(opt_costs)/num_simulations
     expectedThreshold = sum(threshold_costs)/num_simulations
-    expectedHeuristicAlgo = sum(bestvc_costs)/num_simulations
-    ratioAlgo = expectedThreshold/expectedOpt
-    ratioHeuristicAlgo = expectedHeuristicAlgo/expectedOpt
-    expectedCompAlgo = sum(comp_threshold)/num_simulations
-    expectedCompHeuristic = sum(comp_bestvc)/num_simulations
+    expectedBestVC = sum(bestvc_costs)/num_simulations
+    ratioThreshold = expectedThreshold/expectedOpt
+    ratioBestVc = expectedBestVC/expectedOpt
+    expectedCompThreshold = sum(comp_threshold)/num_simulations
+    expectedCompBestVc = sum(comp_bestvc)/num_simulations
     print('E[opt]: '+ str(expectedOpt))
     print('E[Thr]: ' + str(expectedThreshold))
-    print('E[BestVc]: ' + str(expectedHeuristicAlgo))
-    print('comp ratio Thr: ' + str(ratioAlgo))
-    print('comp ratrio BestVc: ' + str(ratioHeuristicAlgo))
-    print('E[Thr/opt]: '+ str(expectedCompAlgo))
-    print('E[BestVc/opt]: '+ str(expectedCompHeuristic))
+    print('E[BestVc]: ' + str(expectedBestVC))
+    print('comp ratio Thr: ' + str(ratioThreshold))
+    print('comp ratrio BestVc: ' + str(ratioBestVc))
+    print('E[Thr/opt]: '+ str(expectedCompThreshold))
+    print('E[BestVc/opt]: '+ str(expectedCompBestVc))
+    return expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations
 
 def sortingProblem():
     print('lol')

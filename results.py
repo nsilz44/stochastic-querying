@@ -45,7 +45,7 @@ def testMinProbabilities():
     minDf = pd.concat([pd.DataFrame([['1.1.6',len(Li),'Descending high to low to uniform','All bradford distribution',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations]], columns=minDf.columns), minDf], ignore_index=True)
     print(minDf.head(6))
     minDf.to_csv('probabilityTests.csv')
-testMinProbabilities()
+#testMinProbabilities()
 
 def testMinIntervals():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
@@ -89,7 +89,7 @@ def testMinIntervals():
     print(minDf.head(6))
     minDf.to_csv('intervalsTests.csv')
 
-testMinIntervals()
+#testMinIntervals()
 def testSmallestElement():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
        'Expected of optimum query set', 'Expected of approximation algorithm',
@@ -166,4 +166,112 @@ def testSmallestElement():
     print(minDf.head(8))
     minDf.to_csv('uniformityTests.csv')
 
-testSmallestElement()
+#testSmallestElement()
+
+def testHypergraphProbabilities():
+    hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
+       'Expected of optimum query set', 'Expected of approximation algorithm',
+       'Expected of heuristic approximation algorithm',
+       'Competitive ratio of approximation algorithm',
+       'Competitive ratio of heuristic approximation algorithm',
+       'Expected competitive ratio of approximation algorithm',
+       'Expected competitive ratio of heuristic approximation algorithm',
+       'Number of simulations'])
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [1]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.1',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All uniform',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [2]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.2',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All beta',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [3]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.3',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All semi-circular',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [4]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.4',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All gauss-hyper',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [5]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.5',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All rdist',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.44086262555211, 6.508807617982692, 15.289007942473924, 25.033473676661764, 33.64226148658999, 38.850973234120346, 42.90820582788927, 44.088051844840344, 53.40918622238459, 61.12098058859728, 64.6371169529308, 74.23323384528064, 75.7017748732943, 77.83736136953749, 79.72367983795047]
+    Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504, 86.53574994809362, 89.54584401255563, 92.01545658320191, 98.45394662476168, 100.01817799769347, 104.12260944552939, 104.3200027903787, 105.59635129807364, 112.30390648855867, 112.63978902141035, 119.27054081198723]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [6]* len(Li)
+    Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.6',len(Li),len(Ei),'HyperGraph','Random between 2 and 4 in length','uniform','All bradford',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [1] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.7',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All uniform',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [2] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.8',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All beta',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [3] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.9',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All semi-circular',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [4] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.10',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All gauss-hyper',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [5] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.11',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All r-dist',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    Li = [5.07250462062994, 13.532797387649257, 16.597993985971456, 24.270996359293463, 25.378232465475932, 32.755363787401535, 38.10592029009122, 47.1222594336827, 55.16083802965181, 58.216503100273044]
+    Ri = [61.12150622392756, 67.1445669193577, 71.07159554132309, 75.38154846662785, 82.41765493672142, 89.40367464611927, 96.36691453057935, 97.1736713649101, 103.93669146225206, 108.07853563383954]
+    Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    Pi = [6] * len(Li)
+    Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
+    expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+    hyperDf = pd.concat([pd.DataFrame([['2.1.12',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All bradford',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
+
+    hyperDf.to_csv('hyperProbabilityTests.csv')
+testHypergraphProbabilities()
