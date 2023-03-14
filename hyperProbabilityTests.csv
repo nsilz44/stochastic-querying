@@ -1,0 +1,13 @@
+,Test,Number of intervals,Number of edges,Graph,Edges Structure,Query structure,Probabilities,Expected of optimum query set,Expected of approximation algorithm,Expected of heuristic approximation algorithm,Competitive ratio of approximation algorithm,Competitive ratio of heuristic approximation algorithm,Expected competitive ratio of approximation algorithm,Expected competitive ratio of heuristic approximation algorithm,Number of simulations
+0,2.1.12,10,14,Bipatite Graph,2 in length,uniform,All bradford,7.647,10.0,9.338,1.3077023669412842,1.221132470249771,1.3598492063491996,1.2641904761904723,1000
+1,2.1.11,10,14,Bipatite Graph,2 in length,uniform,All r-dist,8.22,10.0,8.879,1.21654501216545,1.0801703163017031,1.2471230158730082,1.0912083333333307,1000
+2,2.1.10,10,14,Bipatite Graph,2 in length,uniform,All gauss-hyper,6.244,10.0,6.248,1.6015374759769379,1.0006406149903908,1.6158769841269924,1.0005535714285714,1000
+3,2.1.9,10,14,Bipatite Graph,2 in length,uniform,All semi-circular,8.138,10.0,8.785,1.228803145736053,1.0795035635291226,1.2527857142857068,1.0855626984126956,1000
+4,2.1.8,10,14,Bipatite Graph,2 in length,uniform,All beta,7.108,9.99,7.161,1.4054586381541925,1.0074563871693867,1.4470440476190447,1.0071865079365079,1000
+5,2.1.7,10,14,Bipatite Graph,2 in length,uniform,All uniform,8.114,10.0,8.806,1.2324377618930242,1.0852846931229971,1.2605357142857059,1.0948670634920619,1000
+6,2.1.6,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All bradford,7.419,15.0,8.686,2.0218358269308534,1.1707777328480928,2.110546869796869,1.184742807192803,1000
+7,2.1.5,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All rdist,9.113,15.0,9.599,1.646000219466696,1.053330407110721,1.7126878538128518,1.062974539349537,1000
+8,2.1.4,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All gauss-hyper,11.667,14.987,12.719,1.2845632981914803,1.0901688523185051,1.2909521367521342,1.0913777389277464,1000
+9,2.1.3,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All semi-circular,9.112,15.0,10.165,1.646180860403863,1.115561896400351,1.6951858974358969,1.1198648101898059,1000
+10,2.1.2,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All beta,11.259,14.148,11.461,1.2565947242206235,1.0179412025934809,1.2726182151182137,1.0200537878787888,1000
+11,2.1.1,15,10,HyperGraph,Random between 2 and 4 in length,uniform,All uniform,9.129,15.0,9.593,1.6431153466973383,1.0508270347245043,1.702661463536462,1.0600409451659425,1000

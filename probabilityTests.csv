@@ -1,0 +1,7 @@
+,Test,Number of intervals,Query structure,Probabilities,Expected of optimum query set,Expected of approximation algorithm,Expected of heuristic approximation algorithm,Competitive ratio of approximation algorithm,Competitive ratio of heuristic approximation algorithm,Expected competitive ratio of approximation algorithm,Expected competitive ratio of heuristic approximation algorithm,Number of simulations
+0,1.1.6,15,Descending high to low to uniform,All bradford distribution,41.921,54.765,53.515,1.3063858209489279,1.2765678299658882,1.2558727234927258,1.2310371309771304,1000
+1,1.1.5,15,Descending high to low to uniform,All r-distribution,38.246,45.486,45.031,1.189300841918109,1.1774041729854101,1.1429726925197743,1.1340055491467136,1000
+2,1.1.4,15,Descending high to low to uniform,All Gauss hyper distribution,32.0,32.0,32.0,1.0,1.0,1.0,1.0,1000
+3,1.1.3,15,Descending high to low to uniform,All semi-circular distribution,33.191,34.536,34.237,1.0405230333524147,1.0315145672019523,1.026784615384615,1.0207815384615393,1000
+4,1.1.2,15,Descending high to low to uniform,All beta distribution,32.144,32.386,32.365,1.0075286212045795,1.00687531110005,1.00484,1.0044199999999999,1000
+5,1.1.1,15,Descending high to low to uniform,All uniform,35.903,40.975,40.305,1.1412695317940005,1.1226081385956606,1.1005254493279841,1.0873628438405905,1000
