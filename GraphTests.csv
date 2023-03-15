@@ -1,0 +1,7 @@
+,Test,Number of intervals,Number of edges,Graph,Edges Structure,Query structure,Probabilities,Expected of optimum query set,Expected of threshold algorithm,Expected of bestVc algorithm,Competitive ratio of threshold algorithm,Competitive ratio of bestVc algorithm,Expected competitive ratio of threshold algorithm,Expected competitive ratio of bestVc algorithm,Number of simulations
+0,2.2.6,20,30,Random GNM 30 edges Graph,2 in length,descending,All uniform,16.708,20.0,17.317,1.1970313622216904,1.0364496049796506,1.204159692216962,1.0372919107251508,1000
+1,2.2.5,20,20,Random GNM 20 edges Graph,2 in length,descending,All uniform,16.102,20.0,16.704,1.2420817289777668,1.0373866600422308,1.252913193617521,1.0387976454616927,1000
+2,2.2.4,20,20,Random 2 degree Graph,2 in length,descending,All uniform,18.932,20.0,19.458,1.0564124234100993,1.0277836467356856,1.059072927416578,1.0291179523563803,1000
+3,2.2.3,20,30,Random 3 degree Graph,2 in length,descending,All uniform,19.214,20.0,19.506,1.0409076714895389,1.0151972520037473,1.0429717062263493,1.0159128396972823,1000
+4,2.2.2,20,19,Path Graph,2 in length,descending,All uniform,19.831,20.0,19.841,1.0085220109928899,1.0005042610054966,1.008935672514621,1.0005292397660819,1000
+5,2.2.1,20,47,Bipatite Graph,2 in length,descending,All uniform,18.28,20.0,18.633,1.0940919037199124,1.0193107221006563,1.09962493526425,1.0210737187047547,1000
