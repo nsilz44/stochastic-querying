@@ -313,7 +313,7 @@ def testHyperGraphs():
     expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
     hyperDf = pd.concat([pd.DataFrame([['2.2.6',len(Li),len(Ei),'Random GNM 30 edges Graph','2 in length','descending','All uniform',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations]], columns=hyperDf.columns), hyperDf], ignore_index=True)
     
-    hyperDf.to_csv('hGraphTests.csv')
+    hyperDf.to_csv('GraphTests.csv')
 
 testHyperGraphs()
 
