@@ -51,7 +51,7 @@ def findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,num_iterations):
                             query_list.append(edge[k])
                             break
                 else:
-                    if edgeVi[smallest_index] <= edgeLi[k]:
+                    if edgeVi[smallest_index] >= edgeLi[k]:
                         query_list.append(edge[k])
         for idx in range(len(Li)):
             if idx in query_list:
@@ -299,8 +299,10 @@ def testHyper():
     Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     Pi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     Ei = [[0, 5], [0, 8], [1, 6], [1, 7], [1, 8], [1, 9], [2, 6], [2, 8], [3, 7], [3, 8], [4, 5], [4, 6], [4, 7], [4, 9]]
-    d = 2 / (1 + math.sqrt(5))
+    d = 2 / (1 + math.sqrt(5)) 
+    print(d)
     Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,10000)
+    print(Mi)
     Vi = minimumProblemSimulation(Li,Ri,Pi)
     q = thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
     print(q,queryCalculate(q))
@@ -309,4 +311,4 @@ def testHyper():
     q = hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei)
     print(q,queryCalculate(q))
 
-# testHyper()
+testHyper()
