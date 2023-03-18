@@ -1,9 +1,3 @@
-,Test,Number of intervals,Query structure,Probabilities,Expected of optimum query set,Expected of approximation algorithm,Expected of heuristic approximation algorithm,Competitive ratio of approximation algorithm,Competitive ratio of heuristic approximation algorithm,Expected competitive ratio of approximation algorithm,Expected competitive ratio of heuristic approximation algorithm,Number of simulations
-0,1.3.8,10,Descending high to low to uniform,All uniform,34.03,45.567,43.198,1.3390243902439023,1.2694093446958565,1.326742292171112,1.2611287328490708,1000
-1,1.3.7,10,All uniform,All uniform,1.135,1.136,1.136,1.0008810572687223,1.0008810572687223,1.0001111111111112,1.0001111111111112,1000
-2,1.3.6,10,Descending high to low to uniform,All uniform,103.613,116.26,113.313,1.12205997316939,1.0936175962475752,1.125290923569184,1.1007500571891935,1000
-3,1.3.5,10,All uniform,All uniform,1.962,1.962,1.962,1.0,1.0,1.0,1.0,1000
-4,1.3.4,10,Descending high to low then random low,All uniform,44.137,46.579,46.497,1.0553277295692955,1.0534698778802365,1.0541764926372148,1.0523542704149929,1000
-5,1.3.3,10,All uniform,All uniform,1.088,1.09,1.09,1.0018382352941178,1.0018382352941178,1.0002222222222221,1.0002222222222221,1000
-6,1.3.2,10,Descending high to low then random low,All uniform,1.195,1.197,1.197,1.001673640167364,1.001673640167364,1.0002222222222221,1.0002222222222221,1000
-7,1.3.1,10,All uniform,All uniform,29.179,32.246,31.582,1.1051098392679668,1.0823537475581755,1.0610919952684146,1.0478693448839713,1000
+version https://git-lfs.github.com/spec/v1
+oid sha256:d576dbf443b8494da3244403ad2bd4c6164f6f91831e26a5a704835be15f0ae7
+size 110614286

@@ -169,7 +169,7 @@ def calcQueryCost(query_set,Qi):
         cost = cost + Qi[i]
     return cost
 def testMinAlgorithm(Li,Ri,Qi,Pi):
-    num_simulations = int(input('How many simulations would you like to test? '))
+    num_simulations = 1000000
     min_index_list = []
     opt_query_list = []
     query_list = []
@@ -177,7 +177,7 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     time_start = time.time()
     for k in range(0,num_simulations):
         time_finish = time.time()
-        if time_finish - time_start >= 600:
+        if time_finish - time_start >= 3600:
             num_simulations = k
             break
         Vi = minimumProblemSimulation(Li,Ri,Pi)
@@ -219,7 +219,7 @@ def testMinAlgorithm(Li,Ri,Qi,Pi):
     print('comp ratrio heu: ' + str(ratioHeuristicAlgo))
     print('E[alg/opt]: '+ str(expectedCompAlgo))
     print('E[heu/opt]: '+ str(expectedCompHeuristic))
-    return expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations
+    return expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic
 
 def test_smallest_element():
     Li = [0, 9.511885346386094, 9.60697009243154, 9.654185289779202, 9.730418461787217, 9.789282035843279, 9.885210832983462, 9.934999988303517, 9.971215924466557, 9.976376161303738]

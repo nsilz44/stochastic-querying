@@ -48,7 +48,7 @@ def hypergraphOrientationProblem(num_of_intervals,num_of_edges,max_vertices_per_
     print('Pi =',probability_distribution_list)
     print('Ei =',Ei)
 
-#p= 10 * [1]
+#p= 100 * [1]
 #print(minimumProblem(10,10,1,1,p))
 #print(hypergraphOrientationProblem(10,8,3,10,1,1,p))
 def makeInstance(num_of_intervals,salt):
@@ -62,7 +62,7 @@ def makeInstance(num_of_intervals,salt):
         Ri.append(salt+10)
     print('Li =',li)
     print('Ri =',Ri)
-#makeInstance(50,9.8)
+#makeInstance(100,9.5)
 
 def bipartiteInstance(num_of_intervals,salt_max,Qi,Pi,n,m,p):
     Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,Pi)

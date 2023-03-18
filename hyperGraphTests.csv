@@ -1,2 +1,0 @@
-,Test,Number of intervals,Number of edges,Graph,Edges Structure,Query structure,Probabilities,Expected of optimum query set,Expected of threshold algorithm,Expected of bestVc algorithm,Competitive ratio of threshold algorithm,Competitive ratio of bestVc algorithm,Expected competitive ratio of threshold algorithm,Expected competitive ratio of bestVc algorithm,Number of simulations
-0,2.2.1,20,47,Bipatite Graph,2 in length,uniform,All uniform,185.917,210.0,187.287,1.1295362984557624,1.0073688796613542,1.1452606700799197,1.0073322037155041,1000
