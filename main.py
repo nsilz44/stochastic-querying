@@ -302,18 +302,18 @@ def testHyperGraphs():
     testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
     
 def testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
-    num_simulations = int(input('How many simulations would you like to test? '))
+    num_simulations = 1000000
     opt_query_list = []
     threshold_query_list = []
     bestvc_query_list = []
-    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000)
+    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000000)
     
     d = 2 / (1 + math.sqrt(5))
     print(Mi,d)
     time_start = time.time()
     for k in range(0,num_simulations):
         time_finish = time.time()
-        if time_finish - time_start >= 600:
+        if time_finish - time_start >= 3600:
             num_simulations = k
             break
         Vi = minimumProblemSimulation(Li,Ri,Pi)

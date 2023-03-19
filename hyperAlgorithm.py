@@ -4,6 +4,7 @@ from ortools.linear_solver import pywraplp
 from simulation import *
 import copy
 import math
+import time
 from optimalQuerySet import *
 
 ''' Threshold algorithm for orienting graphs and its generalization to hypergraphs. Section 3.1
@@ -24,7 +25,12 @@ def getEndpoints(Ei):
 
 def findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,num_iterations):
     sum_mandatory_probabilities = [0] * len(Li)
+    time_start = time.time()
     for i in range(num_iterations):
+        time_finish = time.time()
+        if time_finish - time_start >= 3600:
+            num_simulations = i
+            break
         query_list = []
         Vi = minimumProblemSimulation(Li,Ri,Pi)
         for edge in Ei:
