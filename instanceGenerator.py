@@ -48,9 +48,10 @@ def hypergraphOrientationProblem(num_of_intervals,num_of_edges,max_vertices_per_
     print('Pi =',probability_distribution_list)
     print('Ei =',Ei)
 
-#p= 100 * [1]
 #print(minimumProblem(10,10,1,1,p))
-#print(hypergraphOrientationProblem(10,8,3,10,1,1,p))
+#hypergraphOrientationProblem(20,40,5,10,[1]*20,[1]*20)
+
+
 def makeInstance(num_of_intervals,salt):
     li = [0]
     Ri = [10]
@@ -113,6 +114,7 @@ def hypergraphOrientationUniformProblem(num_of_intervals,num_of_edges,vertices_p
     print('Pi =',probability_distribution_list)
     print('Ei =',Ei)
 
+#hypergraphOrientationUniformProblem(20,20,6,10,[1]*20,[1]*20)
 
 def randomRegularGraph(d,num_of_intervals,salt_max,Qi,Pi):
     Li,Ri,Qi,Pi = minimumProblem(num_of_intervals,salt_max,Qi,Pi)

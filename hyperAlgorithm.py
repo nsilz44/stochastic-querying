@@ -317,4 +317,4 @@ def testHyper():
     q = hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei)
     print(q,queryCalculate(q))
 
-testHyper()
+#testHyper()

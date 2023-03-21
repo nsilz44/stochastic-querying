@@ -307,9 +307,8 @@ def testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
     threshold_query_list = []
     bestvc_query_list = []
     Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,1000000)
-    
     d = 2 / (1 + math.sqrt(5))
-    print(Mi,d)
+    #print(Mi,d)
     time_start = time.time()
     for k in range(0,num_simulations):
         time_finish = time.time()
@@ -354,7 +353,7 @@ def testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
     print('comp ratrio BestVc: ' + str(ratioBestVc))
     print('E[Thr/opt]: '+ str(expectedCompThreshold))
     print('E[BestVc/opt]: '+ str(expectedCompBestVc))
-    return expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations
+    return expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations, comp_threshold, comp_bestvc
 
 def sortingProblem():
     print('lol')
@@ -383,4 +382,4 @@ Ri = [80.38122255704386, 81.86113242068102, 82.37233754314828, 86.11998369082504
 Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 Pi = [6]* len(Li)
 Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
-expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+#expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
