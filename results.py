@@ -106,7 +106,7 @@ def testSmallestElement():
     Pi = [1] * len(Li)
     print('Instance 1 case 1.1')
     expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic = testMinAlgorithm(Li,Ri,Qi,Pi)
-    minDf = pd.concat([pd.DataFrame([['1.3.1',len(Li),'All uniform','All uniform',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic]], columns=minDf.columns), minDf], ignore_index=True)
+    minDf = pd.concat([pd.DataFrame([['1.3.1',len(Li),'Descending high to low then random low','All uniform',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic]], columns=minDf.columns), minDf], ignore_index=True)
    
     Li = [0, 9.511885346386094, 9.60697009243154, 9.654185289779202, 9.730418461787217, 9.789282035843279, 9.885210832983462, 9.934999988303517, 9.971215924466557, 9.976376161303738]
     Ri = [10, 19.511885346386094, 19.60697009243154, 19.6541852897792, 19.730418461787217, 19.78928203584328, 19.88521083298346, 19.934999988303517, 19.971215924466556, 19.97637616130374]
@@ -114,7 +114,7 @@ def testSmallestElement():
     Pi = [1] * len(Li)
     print('Instance 1 case 1.2')
     expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic = testMinAlgorithm(Li,Ri,Qi,Pi)
-    minDf = pd.concat([pd.DataFrame([['1.3.2',len(Li),'Descending high to low then random low','All uniform',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic]], columns=minDf.columns), minDf], ignore_index=True)
+    minDf = pd.concat([pd.DataFrame([['1.3.2',len(Li),'All uniform','All uniform',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic]], columns=minDf.columns), minDf], ignore_index=True)
     
     Li = [0, 9.815421312880146, 9.843662412508552, 9.84528093866387, 9.905831711422326, 9.907239868130803, 9.941693807153053, 9.982184977950723, 9.982616317462947, 9.983592476481835]
     Ri = [10, 19.815421312880147, 19.84366241250855, 19.84528093866387, 19.905831711422326, 19.9072398681308, 19.94169380715305, 19.982184977950723, 19.98261631746295, 19.983592476481835]
@@ -275,7 +275,7 @@ def testHypergraphProbabilities():
     hyperDf = pd.concat([pd.DataFrame([['2.1.12',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All bradford',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations, comp_threshold, comp_bestvc]], columns=hyperDf.columns), hyperDf], ignore_index=True)
 
     hyperDf.to_csv('hyperProbabilityTests.csv')
-testHypergraphProbabilities()
+#testHypergraphProbabilities()
 
 def testHyperGraphs():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -316,7 +316,7 @@ def testHyperGraphs():
     
     hyperDf.to_csv('GraphTests.csv')
 
-testHyperGraphs()
+#testHyperGraphs()
 
 def testHyperEdges():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -374,7 +374,7 @@ def testHyperEdges():
     
     hyperDf.to_csv('HypergraphEdgeTests.csv')
 
-testHyperEdges()
+#testHyperEdges()
 
 def testHyperNumEdges():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -420,4 +420,4 @@ def testHyperNumEdges():
     
     hyperDf.to_csv('HypergraphNumOfEdgesTests.csv')
 
-testHyperNumEdges()
+#testHyperNumEdges()

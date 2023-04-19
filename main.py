@@ -383,3 +383,65 @@ Qi = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 Pi = [6]* len(Li)
 Ei = [[4, 6, 11], [0, 10, 12, 13], [1, 4, 7, 14], [8, 11], [8, 12], [1, 3, 7], [2, 6, 8, 11], [0, 13], [1, 2, 9], [0, 5, 6, 13]]
 #expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations = testHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+def testMinHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei):
+    num_simulations = 10000
+    opt_query_list = []
+    threshold_query_list = []
+    bestvc_query_list = []
+    Mi = findMandatoryProbabilities(Li,Ri,Qi,Pi,Ei,10000)
+    d = 2 / (1 + math.sqrt(5))
+    #print(Mi,d)
+    time_start = time.time()
+    for k in range(0,num_simulations):
+        time_finish = time.time()
+        if time_finish - time_start >= 3600:
+            num_simulations = k
+            break
+        Vi = minimumProblemSimulation(Li,Ri,Pi)
+        opt_query_set = hypergraphOptimalQuerySet(Li,Ri,Vi,Qi,Ei)
+        query_set = thresholdLIPAlgorithm(Li,Ri,Qi,Pi,Mi,d,Ei,Vi)
+        bestvc_query_set = bestVCAlgorithm(Li,Ri,Qi,Pi,Mi,Ei,Vi)
+        opt_query_list.append(opt_query_set)
+        threshold_query_list.append(query_set)
+        bestvc_query_list.append(bestvc_query_set)
+    opt_costs = []
+    threshold_costs = []
+    bestvc_costs = []
+    comp_threshold = []
+    comp_bestvc = []
+    j = 0
+    k = 0
+    for i in opt_query_list:
+        opt_costs.append(calcQueryCost(i,Qi))
+        comp_threshold.append(calcQueryCost(threshold_query_list[j],Qi)/calcQueryCost(i,Qi))
+        comp_bestvc.append(calcQueryCost(bestvc_query_list[k],Qi)/calcQueryCost(i,Qi))
+        j =j+1
+        k =k+1
+    for j in threshold_query_list:
+        threshold_costs.append(calcQueryCost(j,Qi))
+    for k in bestvc_query_list:
+        bestvc_costs.append(calcQueryCost(k,Qi))
+    expectedOpt = sum(opt_costs)/num_simulations
+    expectedThreshold = sum(threshold_costs)/num_simulations
+    expectedBestVC = sum(bestvc_costs)/num_simulations
+    ratioThreshold = expectedThreshold/expectedOpt
+    ratioBestVc = expectedBestVC/expectedOpt
+    expectedCompThreshold = sum(comp_threshold)/num_simulations
+    expectedCompBestVc = sum(comp_bestvc)/num_simulations
+    print('E[opt]: '+ str(expectedOpt))
+    print('E[Thr]: ' + str(expectedThreshold))
+    print('E[BestVc]: ' + str(expectedBestVC))
+    print('comp ratio Thr: ' + str(ratioThreshold))
+    print('comp ratrio BestVc: ' + str(ratioBestVc))
+    print('E[Thr/opt]: '+ str(expectedCompThreshold))
+    print('E[BestVc/opt]: '+ str(expectedCompBestVc))
+    return expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations, comp_threshold, comp_bestvc
+
+def testminHyper():
+    Li = [0, 9, 9.808777503284773, 9.831721725114067, 9.853301707684647, 9.853369739851248, 9.866552659061758, 9.905522824202134, 9.942362694502572, 9.95757069328152, 9.967860135910726, 9.969765139341945, 9.975372585037807, 9.97794358011316, 9.977982353979277]
+    Ri = [10, 19.804981484093496, 19.808777503284773, 19.831721725114065, 19.853301707684647, 19.853369739851246, 19.86655265906176, 19.905522824202134, 19.94236269450257, 19.957570693281518, 19.967860135910726, 19.969765139341945, 19.975372585037807, 19.977943580113163, 19.97798235397928]
+    Qi = [50,15,5,1,1,1,1,1,1,1,1,1,1,1,1]
+    Pi = [6] * len(Li)
+    Ei = [[0,1,2,3,4,5,6,7,8,9]]
+    expectedOpt, expectedAlgo, expectedHeuristicAlgo, ratioAlgo, ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic = testMinHyperGraphAlgorithms(Li,Ri,Qi,Pi,Ei)
+testminHyper() 
