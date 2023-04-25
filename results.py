@@ -45,7 +45,7 @@ def testMinProbabilities():
     minDf = pd.concat([pd.DataFrame([['1.1.6',len(Li),'Descending high to low to uniform','All bradford distribution',expectedOpt,expectedAlgo,expectedHeuristicAlgo,ratioAlgo,ratioHeuristicAlgo,expectedCompAlgo, expectedCompHeuristic, num_simulations, comp_algorith, comp_heuristic]], columns=minDf.columns), minDf], ignore_index=True)
     print(minDf.head(6))
     minDf.to_csv('probabilityTests.csv')
-#testMinProbabilities()
+testMinProbabilities()
 
 def testMinIntervals():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
@@ -90,7 +90,7 @@ def testMinIntervals():
     print(minDf.head(6))
     minDf.to_csv('intervalsTests.csv')
 
-#testMinIntervals()
+testMinIntervals()
 def testSmallestElement():
     minDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Query structure', 'Probabilities',
        'Expected of optimum query set', 'Expected of approximation algorithm',
@@ -167,7 +167,7 @@ def testSmallestElement():
     print(minDf.head(8))
     minDf.to_csv('uniformityTests.csv')
 
-#testSmallestElement()
+testSmallestElement()
 
 def testHypergraphProbabilities():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -275,7 +275,7 @@ def testHypergraphProbabilities():
     hyperDf = pd.concat([pd.DataFrame([['2.1.12',len(Li),len(Ei),'Bipatite Graph','2 in length','uniform','All bradford',expectedOpt, expectedThreshold, expectedBestVC, ratioThreshold, ratioBestVc, expectedCompThreshold, expectedCompBestVc, num_simulations, comp_threshold, comp_bestvc]], columns=hyperDf.columns), hyperDf], ignore_index=True)
 
     hyperDf.to_csv('hyperProbabilityTests.csv')
-#testHypergraphProbabilities()
+testHypergraphProbabilities()
 
 def testHyperGraphs():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -316,7 +316,7 @@ def testHyperGraphs():
     
     hyperDf.to_csv('GraphTests.csv')
 
-#testHyperGraphs()
+testHyperGraphs()
 
 def testHyperEdges():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -374,7 +374,7 @@ def testHyperEdges():
     
     hyperDf.to_csv('HypergraphEdgeTests.csv')
 
-#testHyperEdges()
+testHyperEdges()
 
 def testHyperNumEdges():
     hyperDf = pd.DataFrame(columns=['Test', 'Number of intervals', 'Number of edges', 'Graph','Edges Structure', 'Query structure', 'Probabilities',
@@ -420,4 +420,4 @@ def testHyperNumEdges():
     
     hyperDf.to_csv('HypergraphNumOfEdgesTests.csv')
 
-#testHyperNumEdges()
+testHyperNumEdges()
